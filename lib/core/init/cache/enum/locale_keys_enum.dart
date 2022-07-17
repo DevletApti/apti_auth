@@ -1,0 +1,10 @@
+enum PreferencesKeys {
+  TOKEN,
+  REFRESH_TOKEN,
+  VERIFY_EMAIL,
+  ATTEMTID,
+  PASSWORD,
+  NAME,
+  SURNAME,
+  PHONE_NUMBER,
+}

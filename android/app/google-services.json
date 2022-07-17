@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "762178608642",
+    "project_id": "aptus-cc838",
+    "storage_bucket": "aptus-cc838.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:762178608642:android:c206987481cd4c8bd5511b",
+        "android_client_info": {
+          "package_name": "com.example.apti_auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "762178608642-5vlhnhdved4nv8ko2rct92u7ri9a9pml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOxPOMPMUKXpp3URdbKRoMXF__Nm6EE0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "762178608642-5vlhnhdved4nv8ko2rct92u7ri9a9pml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,148 @@
+{
+    "onboarding":"Apti Mobil",
+    "onboard1": "Cebinizdeki Yaşam Asistanınız",
+    "onboard1_description": "Site yönetiminize dair tüm işlemler tek dokunuşla eliniizn altında.",
+    "onboard2":"Avantajlar Sizi Bekliyor",
+    "onboard2_description": "Apti’ye kayıt olduktan sonra site yönetiminizin onayıyla kullanmaya başlayabilir, Apti’nin ayrıcaklıklı dünyasıyla tanışabilirsiniz.",
+    "onboard3":"Pratik Online İşlemler",
+    "onboard3_description": "Yapay zeka ile yaşam alanınızdaki her türlü işlemlerinizde pratik, hızlı ve akılcı çözümlerden yararlanın.",
+    "onboard4":"İnteraktif Site Yaşamı",
+    "onboard4_description":"Kolay erişim, zaman tasarrufu, şeffaf yönetim anlayışı ve katılımcı bir site yaşamı Apti’de sizleri bekliyor.",
+
+    "onboard_button":{
+    "onboard_blue_button":"Sonraki",    
+    "onboard_text_button":"Atla"    
+    },
+    "main_appbar_titles":{
+     "appbar_authpage_title":"Yeni Nesil Yaşam Asistanınız"
+    },
+    "login_card":{
+    "login_card_title":"Giriş Yap",
+    "login_email":"E-posta",
+    "login_email_inside_text":"Sizin@email.com",
+    "login_password":"Şifre",
+    "login_password_inside_text":"Şifreniz",
+    "login_forget_password_text":"Şifremi Unuttum"
+    },
+   "login_button":{
+     "login_button_text":"Giriş Yap" ,
+     "login_text_button":"Kayıt Ol"
+    },
+   "login_bottom_text":{
+     "login_text":"Hesabınız yok mu?"
+     
+   },
+   "login_validation_text":{
+    "login_email_valid_text":"Lütfen geçerli bir e-posta adresi giriniz",
+    "login_password_valid_text":"Şifreniz 4 ile 15 karakter arasında olmalıdır"
+ },
+  "login_error_textbutton":{
+    "login_isempty_text":"Lütfen bu alanları boş bırakmayınız",
+    "login_iswrong_text":"E-posta adresiniz ve/veya şifreniz hatalı." 
+ },
+ "forgot_password_email":{
+   "forget_password_appbar":"Şifre Değişikliği",
+   "forget_card_title_text":"Şifremi Unuttum",
+   "forget_card_desc_text":"Şifrenizi yenilemek için e-posta adresinize bir link gelecektir. Gelen linke tıklayıp yeni şifrenizi belirleyebilirsiniz.",
+   "forget_card_email_text":"E-posta",
+   "forget_card_button_text":"Şifremi Yenile",
+   "forget_card_email_succes_title_text":"Şifre Değişikliği Bağlantısı E-posta Adresinize Gönderildi!",
+   "forget_card_email_succes_desc_text":"ex***@gmail.com adresinize bir e-posta gönderdik. E-posta adresinize gelen linke tıklayıp yeni şifrenizi belirleyebilirsiniz.",
+   "forget_card_email_check_text":"E-posta ulaşmadı mı?",
+   "forget_card_email_spam_text":"Gönderdiğimiz e-posta spam klasörüne düşmüş olabilir.",
+   "forget_card_email_resend_text":"E-posta adresinizi doğru yazdığınızdan ve spam klasörünüzde ilgili e-posta'nın olmadığından eminseniz, şifre değişiklik e-postasının tekrar gönderilmesi için tıklayın." 
+},
+"change_password_card":{
+  "change_password_card_title":"Yeni Şifre Oluşturun",
+  "change_password_card_desc":"Apti üyeliğinizde kullanacağınız yeni şifrenizi belirleyin.",
+  "change_password_card_text":"Şifre",
+  "change_password_card_inside_text":"Şifreniz",
+  "change_password_button_text":"Onayla"
+},
+"change_password_time_expire":{
+  "change_password_time_expire_title":"İşlem Zaman Aşımına Uğradı",
+  "change_password_time_expire_subtext":"Tekrar başlamak için tıklayın."
+},
+"change_password_success":{
+    "change_password_success_title":"Şifreniz Başarıyla Değiştirildi!",
+    "change_password_success_subtext":"Yeni şifrenizi kullanarak giriş yapabilirsiniz.",
+    "change_password_button_text":"Giriş Yap"
+  },
+"signin_card":{
+   "signin_card_title":"Kayıt Ol",
+   "signin_name":"Ad",
+   "signin_name_inside_text":"Adınız",
+   "signin_surname":"Soyad",
+   "signin_surname_inside_text":"Soyadınız",
+   "signin_email":"E-posta",
+   "signin_email_inside_text":"Sizin@email.com",
+   "sign_in_phone_number":"Cep Telefonu",
+   "signin_password":"Şifre",
+   "signin_password_inside_text":"Şifreniz",
+   "signin_offer_desc_text":"Kampanyalardan haberdar olmak için Riza Metni kapsamında electronik ileti almak istemiyorum",
+   "signin_page_button":"Kayıt Ol",
+   "signin_account_check_text":"Hesabın var mı?",
+   "signin_page_enter_text_button":"Giriş Yap",
+   "signin_bottom_desc_text":"Kişisel verileriniz  Aydınlatma Metni kapsamında işlenmektedir. Kayıt Ol butonuna basarak Kişisel Verilerin Korunması Politikası'nı, Gizlilik Politikası'nı, Kullanıcı Sözleşmesi'ni ve Çerez Politikası'nı okuduğunuzu ve kabul ettiğinizi onaylıyorsunuz."
+
+},
+"signin_validation_text":{
+    "signin_name_valid_text":"Lütfen geçerli bir ad giriniz",
+    "signin_surname_valid_text":"Lütfen geçerli bir soyad giriniz",
+    "signin_email_valid_text":"Lütfen geçerli bir e-posta adresi giriniz",
+    "signin_phone_valid_text":"Cep Telefonu hatalı",
+    "signin_password_valid_text":"Şifreniz 4 ile 15 karakter arasında olmalıdır."
+ },
+ "signin_phone_code_select":{
+     "signin_country_code_title":"Ülke kodu",
+     "sigin_search_field_text":"Ülke kodu Ara"
+ },
+ "app_otp":{
+    "otp_appbar_text":"Kayıt işlemini tamamlayın", 
+    "otp_card_title_text":"E-posta adresini doğrula",
+    "otp_card_desc_text":"Lüften e-posta adresinize gelen doğrulama kodunu aşağıdaki alana giriniz",
+    "otp_card_change_email_text_button":"E-posta adresini değiştir",
+    "otp_card_resend_code_text_button":"Doğrulama kodunu yeniden gönder",
+    "otp_card_button":"Doğrula",
+    "otp_card_valid_text":"Doğrulama kodu hatalı. Lütfen tekrar deneyiniz."   
+ },
+ "home_page": {
+    "main_tabs": {
+        "campign": "Kampanya",
+        "request": "Talep ",
+        "announcement":"Duyuru",
+        "advert ":"İlan",
+        "news":"Haber",
+        "activity":"Etkinlik",
+        "ap_activity":"Site Faaliyetleri",
+        "join_campign_button":"Katıl"
+
+    }
+},
+"my_apartment":{
+  "appbar_my_apartment_list_title":"Daire başvurularım",
+  "appbar_add_new_appartment_detail_title":"Daire Başvurusu Detayı",
+  "appbar_add_new_apartmetnt_title":"Yeni Daire Başvurusu",
+  "my_apartment_ticket_buttons":{
+    "approved_ticket_button":"Onaylandı",
+    "review_ticket_button":"İnceleniyor",
+    "request_created_ticket_button":"Talep Oluşturuldu"
+  }
+},
+"bottom_nav_items":{
+    "main_bottom":"Ana sayfa",
+    "apti_club_bottom":"Apti Club",
+    "apti_demand_bottom":"Talepler",
+    "apti_myflat_bottom":"Dairem",
+    "apti_profil_bottom":"Profil"
+
+},
+
+"app_hata":{
+  "appErrorNetworkTitle":"Ağ Hatası",
+  "appErrorNetworkMessage": "Lütfen Baglantınızı Kontrol Ediniz",
+  "appErrorServerTitle":"Server Hata",
+  "appUnknownErrorTitle":"Bir Hata Olustu"
+  
+ }
+}

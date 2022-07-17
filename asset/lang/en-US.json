@@ -1,0 +1,137 @@
+{
+    "onboarding":"Apti Mobil",
+    "onboard1": "Life Assistant in your Mobile",
+    "onboard1_description": "All processes related to your site management are at your fingertips with one touch.",
+    "onboard2":"Advantages Await You",
+    "onboard2_description": "After registering to Apti, you can start using it with the approval of your site management and meet the priviliged world of Apti.",
+    "onboard3":"Practical Online Transactions",
+    "onboard3_description": "Benefit from practical, fast and rational solutions for all kinds of transactions in your living space with artificial intelligence.",
+    "onboard4":"Interactive Site Life",
+    "onboard4_description":"Easy access, time saving, transparent management approach and a participatory site life await you at Apti.",
+
+    "onboard_button":{
+    "onboard_blue_button":"Next",    
+    "onboard_text_button":"Skip"    
+    },
+    "main_appbar_titles":{
+     "appbar_authpage_title":"New Genaration Life Assistant"
+    },
+    "login_card":{
+    "login_card_title":"Login",
+    "login_email":"E-mail",
+    "login_email_inside_text":"Your@email.com",
+    "login_password":"Password",
+    "login_password_inside_text":"Your Password",
+    "login_forget_password_text":"Forgot Password"
+    },
+   "login_button":{
+     "login_button_text":"Login" ,
+     "login_text_button":"Register"
+    },
+   "login_bottom_text":{
+     "login_text":"Have an account ?"
+
+   },
+   "login_validation_text":{
+    "login_email_valid_text":"Please enter a valid e-mail address.",
+    "login_password_valid_text":"Your password must be between 4 and 15 characters"
+ },
+  "login_error_textbutton":{
+    "login_isempty_text":"Please do not leave these fields blank",
+    "login_iswrong_text":"Your e-mail address and/or password is incorrect." 
+ },
+ "forgot_password_email":{
+   "forget_password_appbar":"Change Password",
+   "forget_card_title_text":"Forgot Password",
+   "forget_card_desc_text":"A link will be sent to your e-mail address to reset your password. You can click on the link and set your new password.",
+   "forget_card_email_text":"E-mail",
+   "forget_card_button_text":"Reset My Password",
+   "forget_card_email_succes_title_text":"Password Change Link Sent To Your Email Address!",
+   "forget_card_email_succes_desc_text":"We have sent an e-mail to your …… address. You can click on the link sent to your e-mail address and set your new password.",
+   "forget_card_email_check_text":"Didn't get the e-mail?",
+   "forget_card_email_spam_text":"The e-mail we sent may have gone into the spam folder.",
+   "forget_card_email_resend_text":"If you are sure that you have typed your e-mail address correctly and that there is no corresponding e-mail in your spam folder, click to resend the password change e-mail." 
+},
+"change_password_card":{
+  "change_password_card_title":"Create New Password",
+  "change_password_card_desc":"Set your new password to use in your Apti subscription.",
+  "change_password_card_text":"Password",
+  "change_password_card_inside_text":"Your Password",
+  "change_password_button_text":"Approve"
+},
+"change_password_time_expire":{
+  "change_password_time_expire_title":"Transaction Timed Out",
+  "change_password_time_expire_subtext":"Click to start again."
+},
+"change_password_success":{
+    "change_password_success_title":"Your Password Has Been Changed Successfully!",
+    "change_password_success_subtext":"You can login using your new password.",
+    "change_password_button_text":"Login"
+  },
+"signin_card":{
+   "signin_card_title":"Register",
+   "signin_name":"Name",
+   "signin_name_inside_text":"Your Name",
+   "signin_surname":"Surname",
+   "signin_surname_inside_text":"Your Surname",
+   "signin_email":"E-mail",
+   "signin_email_inside_text":"Your@email.com",
+   "sign_in_phone_number":"Mobile Phone",
+   "signin_password":"Password",
+   "signin_password_inside_text":"Your Password",
+   "signin_offer_desc_text":"I would like to receive electronic messages within the scope of Riza Text to be informed about the campaigns.",
+   "signin_page_button":"Register",
+   "signin_account_check_text":"Do you have an account?",
+   "signin_page_enter_text_button":"Login",
+   "signin_bottom_desc_text":"Your personal data is processed within the scope of the Clarification Text. By clicking the Register button, you confirm that you have read and accepted the Personal Data Protection Policy, Privacy Policy, User Agreement and Cookie Policy."
+
+},
+"signin_validation_text":{
+    "signin_name_valid_text":"Please enter a valid name.",
+    "signin_surname_valid_text":"Please enter a valid surname.",
+    "signin_email_valid_text":"Please enter a valid e-mail address",
+    "signin_phone_valid_text":"Mobile Phone is faulty",
+    "signin_password_valid_text":"Your password must be between 4 and 15 characters."
+ },
+ "signin_phone_code_select":{
+     "signin_country_code_title":"Country code",
+     "sigin_search_field_text":"Search country code"
+ },
+ "app_otp":{
+    "otp_appbar_text":"Complete the registration process", 
+    "otp_card_title_text":"Verify e-mail address",
+    "otp_card_desc_text":"Please enter the verification code sent to your e-mail address in the field below.",
+    "otp_card_change_email_text_button":"Change e-mail address",
+    "otp_card_resend_code_text_button":"Resend verification code",
+    "otp_card_button":"Approve",
+    "otp_card_valid_text":"The verification code is incorrect. Please try again."   
+ },
+ "home_page": {
+    "main_tabs": {
+        "offer": "Campaign",
+        "demand": "Request",
+        "announcement":"Announcement",
+        "advert ":"Advert",
+        "news":"News",
+        "activity":"Activity",
+        "ap_activity":"Site Activities"
+    }
+},
+"bottom_nav_items":{
+    "main_bottom":"Home",
+    "apti_club_bottom":"Apti Club",
+    "apti_demand_bottom":"Request",
+    "apti_myflat_bottom":"My Flats",
+    "apti_profil_bottom":"Profile"
+
+},
+
+
+"app_errors":{
+ "appErrorNetworkTitle":"Network Error",
+ "appErrorNetworkMessage": "Check your network connection",
+ "appErrorServerTitle":"Server Error",
+ "appUnknownErrorTitle":"Unknown Error"
+}
+
+}
