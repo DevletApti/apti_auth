@@ -1,4 +1,6 @@
-import 'package:Apti/view/onboarding_page.dart';
+import 'package:Apti/view/email_verify_page.dart';
+import 'package:Apti/view/login_page.dart';
+import 'package:Apti/view/register_page.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: OnboardingScreen.routeName,
+      initialRoute: RegisterPage.routeName,
       onGenerateRoute: MyPageRoute.generateRoute,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,

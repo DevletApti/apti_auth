@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../model/login_request_model.dart';
 import '../model/login_response_model.dart';
 
 import 'ILoginService.dart';
@@ -28,16 +27,15 @@ class LoginService extends ILoginService {
     Map<String, dynamic> reqData = {
       "userNameOrEmailAddress": emailAddress,
       "password": password,
-    };
+    };  
     LoginResponseModel data;
+    dio.options.headers['Abp.TenantId'] = 1;
     var response = await dio.post(loginPath, data: reqData);
 
     if (response.statusCode == HttpStatus.ok) {
       data = LoginResponseModel.fromJson(response.data);
-      saveString("accessToken", data.accessToken!);
-      saveInteger("userId", data.userId!);
-      debugPrint(
-          "${data.accessToken} this is from service Register service");
+      saveString("accessToken", data.result!.accessToken!);
+      saveString("refreshToken", data.result!.refreshToken!);
       return data;
     } else {
       debugPrint("${response.statusCode}");

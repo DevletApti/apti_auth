@@ -1,18 +1,58 @@
 class LoginResponseModel {
+  Result? result;
+  Null? targetUrl;
+  bool? success;
+  Null? error;
+  bool? unAuthorizedRequest;
+  bool? bAbp;
+
+  LoginResponseModel(
+      {this.result,
+      this.targetUrl,
+      this.success,
+      this.error,
+      this.unAuthorizedRequest,
+      this.bAbp});
+
+  LoginResponseModel.fromJson(Map<String, dynamic> json) {
+    result =
+        json['result'] != null ? new Result.fromJson(json['result']) : null;
+    targetUrl = json['targetUrl'];
+    success = json['success'];
+    error = json['error'];
+    unAuthorizedRequest = json['unAuthorizedRequest'];
+    bAbp = json['__abp'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.result != null) {
+      data['result'] = this.result!.toJson();
+    }
+    data['targetUrl'] = this.targetUrl;
+    data['success'] = this.success;
+    data['error'] = this.error;
+    data['unAuthorizedRequest'] = this.unAuthorizedRequest;
+    data['__abp'] = this.bAbp;
+    return data;
+  }
+}
+
+class Result {
   String? accessToken;
   String? encryptedAccessToken;
   int? expireInSeconds;
   bool? shouldResetPassword;
-  String? passwordResetCode;
+  Null? passwordResetCode;
   int? userId;
   bool? requiresTwoFactorVerification;
-  List<TwoFactorAuthProviders>? twoFactorAuthProviders;
-  String? twoFactorRememberClientToken;
-  String? returnUrl;
+  Null? twoFactorAuthProviders;
+  Null? twoFactorRememberClientToken;
+  Null? returnUrl;
   String? refreshToken;
   int? refreshTokenExpireInSeconds;
 
-  LoginResponseModel(
+  Result(
       {this.accessToken,
       this.encryptedAccessToken,
       this.expireInSeconds,
@@ -26,7 +66,7 @@ class LoginResponseModel {
       this.refreshToken,
       this.refreshTokenExpireInSeconds});
 
-  LoginResponseModel.fromJson(Map<String, dynamic> json) {
+  Result.fromJson(Map<String, dynamic> json) {
     accessToken = json['accessToken'];
     encryptedAccessToken = json['encryptedAccessToken'];
     expireInSeconds = json['expireInSeconds'];
@@ -34,12 +74,7 @@ class LoginResponseModel {
     passwordResetCode = json['passwordResetCode'];
     userId = json['userId'];
     requiresTwoFactorVerification = json['requiresTwoFactorVerification'];
-    if (json['twoFactorAuthProviders'] != null) {
-      twoFactorAuthProviders = <TwoFactorAuthProviders>[];
-      json['twoFactorAuthProviders'].forEach((v) {
-        twoFactorAuthProviders!.add(new TwoFactorAuthProviders.fromJson(v));
-      });
-    }
+    twoFactorAuthProviders = json['twoFactorAuthProviders'];
     twoFactorRememberClientToken = json['twoFactorRememberClientToken'];
     returnUrl = json['returnUrl'];
     refreshToken = json['refreshToken'];
@@ -55,30 +90,11 @@ class LoginResponseModel {
     data['passwordResetCode'] = this.passwordResetCode;
     data['userId'] = this.userId;
     data['requiresTwoFactorVerification'] = this.requiresTwoFactorVerification;
-    if (this.twoFactorAuthProviders != null) {
-      data['twoFactorAuthProviders'] =
-          this.twoFactorAuthProviders!.map((v) => v.toJson()).toList();
-    }
+    data['twoFactorAuthProviders'] = this.twoFactorAuthProviders;
     data['twoFactorRememberClientToken'] = this.twoFactorRememberClientToken;
     data['returnUrl'] = this.returnUrl;
     data['refreshToken'] = this.refreshToken;
     data['refreshTokenExpireInSeconds'] = this.refreshTokenExpireInSeconds;
-    return data;
-  }
-}
-
-class TwoFactorAuthProviders {
-  String? value;
-
-  TwoFactorAuthProviders({this.value});
-
-  TwoFactorAuthProviders.fromJson(Map<String, dynamic> json) {
-    value = json['value'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
     return data;
   }
 }

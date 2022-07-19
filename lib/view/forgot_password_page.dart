@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../core/colors/app_colors.dart';
+import 'change_password_page.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   //EasyLocalization
@@ -218,7 +219,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           ),
         ),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).pushNamed(ChangePasswordPage.routeName);
+      },
       child: Text(
         LocaleKeys.forgot_password_email_forget_card_button_text.tr(),
         style: const TextStyle(
@@ -251,3 +254,19 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     );
   }
 }
+
+
+// extension extForgotPassword on String {
+  
+
+//   bool get isValidPassword {
+//     final passwordRegExp = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+//     return passwordRegExp.hasMatch(this);
+//   }
+
+//   bool get isNotNull {
+//     return this != null;
+//   }
+
+ 
+// }

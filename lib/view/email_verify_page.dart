@@ -70,7 +70,7 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
     }
   }
 
-  readOtherData() async {
+  void readOtherData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getString("name") != null) {
       setState(() => name = prefs.getString("name")!);
@@ -88,15 +88,6 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
       setState(() => phoneNumber = prefs.getString("phoneNumber")!);
     }
   }
-  // getString(String key) async {
-  //   SharedPreferences prefs = await _prefs;
-  //   return prefs.getString(key).toString();
-  // }
-
-  // getBool(String key) async {
-  //   SharedPreferences prefs = await _prefs;
-  //   return prefs.getBool(key);
-  // }
 
   @override
   void initState() {
@@ -119,6 +110,11 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
   @override
   void dispose() {
     textEditingController!.dispose();
+    ftController!.dispose();
+    scController!.dispose();
+    tdController!.dispose();
+    frController!.dispose();
+    fvController!.dispose();
     super.dispose();
   }
 
@@ -175,7 +171,7 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
               padding: EdgeInsets.only(left: 40),
               child: Text(
                 'Kayıt Işlemini Tamamlayın',
-                style: TextStyle(color: AppColors.aptidarkblue2, fontSize: 18),
+                style: TextStyle(color: AppColors.aptidarkblue5, fontSize: 18),
               ),
             ),
           ],
@@ -183,15 +179,12 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
       ),
       body: Column(
         children: <Widget>[
+          const SizedBox(height: 40),
           Padding(
-            padding: const EdgeInsets.only(
-              top: 40,
-              left: 18,
-            ),
+            padding: const EdgeInsets.fromLTRB(16, 10, 10, 20),
             child: Container(
-              width: 343,
-              height: 270,
-              padding: const EdgeInsets.only(left: 10),
+              width: 380,
+              height: 290,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black12),
                 borderRadius: BorderRadius.circular(14.0),
@@ -222,22 +215,27 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
         const SizedBox(
           height: 20,
         ),
-        Text(
-          LocaleKeys.app_otp_otp_card_title_text.tr(),
-          textAlign: TextAlign.start,
-          style: const TextStyle(
-            fontSize: 25.0,
-            fontWeight: FontWeight.w800,
+        Padding(
+          padding: const EdgeInsets.only(right: 120),
+          child: Text(
+            LocaleKeys.app_otp_otp_card_title_text.tr(),
+            textAlign: TextAlign.start,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         const SizedBox(
-          height: 20,
+          height: 10,
         ),
-        Text(
-          LocaleKeys.app_otp_otp_card_desc_text.tr(),
-          textAlign: TextAlign.start,
-          style: const TextStyle(
-            fontSize: 15.0,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+          child: Text(
+            LocaleKeys.app_otp_otp_card_desc_text.tr(),
+            style: const TextStyle(
+              fontSize: 16.0,
+            ),
           ),
         ),
         const SizedBox(
@@ -245,23 +243,26 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
         ),
         Row(
           children: [
-            Text(
-              '($emailAddress)',
-              textAlign: TextAlign.start,
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 15.0,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+              child: Text(
+                '($emailAddress)',
+                textAlign: TextAlign.left,
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                ),
               ),
             ),
+            const SizedBox(
+              height: 5,
+            ),
             Text(
-              LocaleKeys.app_otp_otp_card_change_email_text_button.tr()
-
-              // ' E-posta adresini degishtir'
-              ,
+              LocaleKeys.app_otp_otp_card_change_email_text_button.tr(),
               style: const TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 17.0,
-              ),
+                  color: AppColors.aptiblueprimary,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700),
             ),
           ],
         ),
@@ -278,13 +279,13 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
         ]),
         if (!isValid)
           Column(
-            children: const [
-              SizedBox(
+            children: [
+              const SizedBox(
                 height: 10,
               ),
               Text(
-                'Doğrulama kodu hatalı. Lütfen tekrar deneyiniz.',
-                style: TextStyle(
+                LocaleKeys.app_otp_otp_card_valid_text.tr(),
+                style: const TextStyle(
                   color: Colors.red,
                   fontSize: 15.0,
                 ),
@@ -293,17 +294,17 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
           ),
         !isValid
             ? const SizedBox(
-                height: 38,
+                height: 30,
               )
             : const SizedBox(
-                height: 35,
+                height: 20,
               ),
-        const Text(
-          'Doğurlama kodunu yaniden gönder',
-          style: TextStyle(
-            color: Colors.blueAccent,
-            fontSize: 19.0,
-          ),
+        Text(
+          LocaleKeys.app_otp_otp_card_resend_code_text_button.tr(),
+          style: const TextStyle(
+              color: AppColors.aptiblueprimary,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w700),
         ),
       ],
     );
@@ -514,69 +515,73 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
           children: [
             Visibility(
                 visible: isLoading, child: const CircularProgressIndicator()),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: AppColors.aptiblueprimary,
-                onSurface: Colors.blueAccent,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(16),
+            SizedBox(
+              width: 380,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: AppColors.aptiblueprimary,
+                  onSurface: AppColors.aptilightgray4,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(16),
+                    ),
                   ),
                 ),
-              ),
-              onPressed: isButtonActive
-                  ? () async {
-                      setState(() {
-                        code = ftController!.text +
-                            scController!.text +
-                            tdController!.text +
-                            frController!.text +
-                            fvController!.text +
-                            textEditingController!.text;
-                        isLoading = true;
-                      });
-                      debugPrint(
-                          "$attemptId and $code => attemptId from Verify Page");
-                      await context
-                          .read<VerifyEmailCubit>()
-                          .service
-                          .verifyEmail(
-                            attemptId: attemptId,
-                            code: code!,
-                          )
-                          .then((value) async {
-                        await readVerify();
-                        await readOtherData();
-                        debugPrint(
-                            "verifyEmail -> $verifyEmail   AttemptId -> $attemptId ");
-                        verifyEmail!
-                            ? (await registerService!
-                                .userRegister(
-                                    name: name,
-                                    surname: surname,
-                                    emailAddress: emailAddress,
-                                    password: password,
-                                    phoneNumber: phoneNumber)
-                                .then((value) async {
-                                await readCanLogin();
-                                debugPrint("canLogin -> $canLogin from userRegister");
-                                if (canLogin == true) {
-                                  Navigator.of(context)
-                                      .pushNamed(LoginPage.routeName);
-                                } else {
-                                  setState(() => isValid = false);
-                                }
-                              }))
-                            : (setState(() => isValid = false));
-                      });
-                      setState(() {
-                        isLoading = false;
-                      });
-                    }
-                  : null,
-              child: const Text(
-                'Doğrula',
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
+                onPressed: isButtonActive
+                    ? () async {
+                        setState(() {
+                          code = ftController!.text +
+                              scController!.text +
+                              tdController!.text +
+                              frController!.text +
+                              fvController!.text +
+                              textEditingController!.text;
+                          isLoading = true;
+                        });
+                        await context
+                            .read<VerifyEmailCubit>()
+                            .service
+                            .verifyEmail(
+                              attemptId: attemptId,
+                              code: code!,
+                            )
+                            .then((value) async {
+                          await readVerify();
+                          verifyEmail!
+                              ? (await registerService!
+                                  .userRegister(
+                                      name: name,
+                                      surname: surname,
+                                      emailAddress: emailAddress,
+                                      password: password,
+                                      phoneNumber: phoneNumber)
+                                  .then((value) async {
+                                  await readCanLogin();
+                                  if (canLogin == true) {
+                                    Navigator.of(context)
+                                        .pushNamed(LoginPage.routeName);
+                                  } else {
+                                    setState(() {
+                                      isValid = false;
+                                      isLoading = false;
+                                    });
+                                  }
+                                }))
+                              : (setState(() {
+                                  isValid = false;
+                                  isLoading = false;
+                                }));
+                        });
+                        setState(() {
+                          isLoading = false;
+                        });
+                      }
+                    : null,
+                child: const Text(
+                  'Doğrula',
+                  style: TextStyle(fontSize: 20.0, color: Colors.white),
+                ),
               ),
             ),
           ],
@@ -585,6 +590,41 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
     );
   }
 }
+
+
+// extension extEmailVerifyPage on String {
+//   bool get isValidEmail {
+//     final emailRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+//     return emailRegExp.hasMatch(this);
+//   }
+
+//   bool get isValidName {
+//     final nameRegExp =
+//         RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");
+//     return nameRegExp.hasMatch(this);
+//   }
+
+//   bool get isValidSurname {
+//     final nameRegExp =
+//         RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");
+//     return nameRegExp.hasMatch(this);
+//   }
+
+//   bool get isValidPassword {
+//     final passwordRegExp = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+//     return passwordRegExp.hasMatch(this);
+//   }
+
+//   bool get isNotNull {
+//     return this != null;
+//   }
+
+//   bool get isValidPhone {
+//     final phoneRegExp = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
+//     return phoneRegExp.hasMatch(this);
+//   }
+// }
+
 
 // await context
 //                                 .read<RegisterCubit>()

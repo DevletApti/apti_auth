@@ -6,8 +6,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../model/register_request_model.dart';
-
 import '../model/register_response_model.dart';
 import 'IRegisterService.dart';
 
@@ -42,18 +40,17 @@ class RegisterService extends IRegisterService {
     };
 
     RegisterResponseModel data;
-    dio.options.headers['x-abp-tenantId'] = 'tenantId';
-    var response = await dio.post(registerPath,
-        data: reqData,);
+    dio.options.headers['Abp.TenantId'] = 1;
+    var response = await dio.post(
+      registerPath,
+      data: reqData,
+    );
 
     if (response.statusCode == HttpStatus.ok) {
       data = RegisterResponseModel.fromJson(response.data);
       saveBool("can-login", data.result!.canLogin!);
-      debugPrint(
-          "${data.result!.canLogin} this is from service Register service");
       return data;
     } else {
-      debugPrint("${response.statusCode}");
       return null;
     }
   }
@@ -66,17 +63,15 @@ class RegisterService extends IRegisterService {
 
     var response = await dio.post(
       sendPath,
-      data: emailData,
+      data: emailData, options: Options(validateStatus: (status) => true)
     );
 
     if (response.statusCode == HttpStatus.ok) {
       data = SendEmailVerificationCode.fromJson(response.data);
       saveString("attemptId", data.result!);
       saveString("emailAddress", email);
-      debugPrint("${data.result} this is from service Email Send");
       return data;
     } else {
-      debugPrint("${response.statusCode}");
       return null;
     }
   }
@@ -88,18 +83,14 @@ class RegisterService extends IRegisterService {
 
     VerifyEmailVerificationCode data;
 
-    var response = await dio.post(
-      verifyPath,
-      data: verifyData,
-    );
+    var response = await dio.post(verifyPath,
+        data: verifyData, options: Options(validateStatus: (status) => true));
 
     if (response.statusCode == HttpStatus.ok) {
       data = VerifyEmailVerificationCode.fromJson(response.data);
       saveBool("verify-email", data.result!);
-      debugPrint("${data.result} this is from service Email Verify");
       return data;
     } else {
-      debugPrint("${response.statusCode}");
       return null;
     }
   }

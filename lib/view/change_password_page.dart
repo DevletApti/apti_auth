@@ -1,4 +1,5 @@
 import 'package:Apti/localization/locale_keys.g.dart';
+import 'package:Apti/view/widgets/login_header.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +21,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final TextEditingController passwordController = TextEditingController();
   bool _isVisible = false;
   String? password = '';
+  bool isButtonActive = false;
+  bool isValid = true;
+  bool isLoading = false;
 
   void updateStatus() {
     setState(() {
@@ -30,8 +34,10 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.aptiwhite,
       appBar: AppBar(
-        toolbarHeight: 60.0,
+        elevation: 0,
+        toolbarHeight: 80.0,
         backgroundColor: AppColors.aptiwhite,
         actions: [
           Padding(
@@ -41,22 +47,9 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             ),
           ),
         ],
-        leading: const Icon(
-          Icons.chevron_left_outlined,
-          size: 35,
-          color: AppColors.aptidarkblue2,
-        ),
+        leading: const Text(''),
         title: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 70),
-              child: Text(
-                LocaleKeys.forgot_password_email_forget_password_appbar.tr(),
-                style: const TextStyle(
-                    color: AppColors.aptidarkblue2, fontSize: 18),
-              ),
-            ),
-          ],
+          children: const [HeaderWidget()],
         ),
       ),
       body: Form(
@@ -190,20 +183,30 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         primary: AppColors.aptiblueprimary,
-        onSurface: Colors.blueAccent,
+        onSurface: AppColors.aptilightgray4,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(16),
           ),
         ),
       ),
-      onPressed: () {
-        Navigator.of(context).pushNamed(AddNewPasswordPage.routeName);
-        final isValid = formKey.currentState!.validate();
-      },
+      onPressed: isButtonActive
+          ? () {
+              setState(() {
+                isLoading = true;
+              });
+              Navigator.of(context).pushNamed(AddNewPasswordPage.routeName);
+              //final isValid = formKey.currentState!.validate();
+              // setState(() => isButtonActive = isButtonActive);
+              setState(() {
+                isLoading = false;
+              });
+            }
+          : null,
       child: Text(
         LocaleKeys.change_password_card_change_password_button_text.tr(),
         style: const TextStyle(
+          color: AppColors.aptiwhite,
           fontSize: 18.0,
         ),
       ),
@@ -272,3 +275,35 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     );
   }
 }
+// extension extChangePasswordPage on String {
+//   bool get isValidEmail {
+//     final emailRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+//     return emailRegExp.hasMatch(this);
+//   }
+
+//   bool get isValidName {
+//     final nameRegExp =
+//         RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");
+//     return nameRegExp.hasMatch(this);
+//   }
+
+//   bool get isValidSurname {
+//     final nameRegExp =
+//         RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");
+//     return nameRegExp.hasMatch(this);
+//   }
+
+//   bool get isValidPassword {
+//     final passwordRegExp = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+//     return passwordRegExp.hasMatch(this);
+//   }
+
+//   bool get isNotNull {
+//     return this != null;
+//   }
+
+//   bool get isValidPhone {
+//     final phoneRegExp = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
+//     return phoneRegExp.hasMatch(this);
+//   }
+// }

@@ -29,7 +29,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         borderRadius: BorderRadius.all(
           Radius.circular(50),
         ),
-         color: AppColors.aptiblueprimary,
+        color: AppColors.aptiblueprimary,
       ),
 
       //color: AppColors.aptilightgray2,
@@ -117,24 +117,29 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           margin: const EdgeInsets.only(bottom: 40),
                           child: Padding(
                             padding: const EdgeInsets.all(30),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed(LoginPage.routeName);
-                              },
-                              child: const Text("Başla"),
-                              style: ElevatedButton.styleFrom(
-                                primary: AppColors.aptiblueprimary,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
+                            child: SizedBox(
+                              width: 350,
+                              height: 55,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed(LoginPage.routeName);
+                                },
+                                child: const Text("Başla"),
+                                style: ElevatedButton.styleFrom(
+                                  primary: AppColors.aptiblueprimary,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  padding: (width <= 550)
+                                      ? const EdgeInsets.symmetric(
+                                          horizontal: 100, vertical: 20)
+                                      : EdgeInsets.symmetric(
+                                          horizontal: width * 0.2,
+                                          vertical: 25),
+                                  textStyle: TextStyle(
+                                      fontSize: (width <= 550) ? 13 : 17),
                                 ),
-                                padding: (width <= 550)
-                                    ? const EdgeInsets.symmetric(
-                                        horizontal: 100, vertical: 20)
-                                    : EdgeInsets.symmetric(
-                                        horizontal: width * 0.2, vertical: 25),
-                                textStyle: TextStyle(
-                                    fontSize: (width <= 550) ? 13 : 17),
                               ),
                             ),
                           ),
@@ -172,24 +177,28 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Widget _buildNextBtn(double width) {
-    return ElevatedButton(
-      onPressed: () {
-        _controller.nextPage(
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeIn,
-        );
-      },
-      child: const Text("Sonraki"),
-      style: ElevatedButton.styleFrom(
-        primary: AppColors.aptiblueprimary,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+    return SizedBox(
+      width: 350,
+      height: 55,
+      child: ElevatedButton(
+        onPressed: () {
+          _controller.nextPage(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeIn,
+          );
+        },
+        child: const Text("Sonraki"),
+        style: ElevatedButton.styleFrom(
+          primary: AppColors.aptiblueprimary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          elevation: 0,
+          padding: (width <= 550)
+              ? const EdgeInsets.symmetric(horizontal: 100, vertical: 20)
+              : EdgeInsets.symmetric(horizontal: width * 0.2, vertical: 25),
+          textStyle: TextStyle(fontSize: (width <= 550) ? 13 : 17),
         ),
-        elevation: 0,
-        padding: (width <= 550)
-            ? const EdgeInsets.symmetric(horizontal: 100, vertical: 20)
-            : EdgeInsets.symmetric(horizontal: width * 0.2, vertical: 25),
-        textStyle: TextStyle(fontSize: (width <= 550) ? 13 : 17),
       ),
     );
   }

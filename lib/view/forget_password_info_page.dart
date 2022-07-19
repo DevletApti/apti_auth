@@ -199,3 +199,23 @@ Widget _buildContent(BuildContext context) {
     ],
   );
 }
+
+
+
+
+
+
+// extension extForgotPasswordInfo on String {
+ 
+//   bool get isValidPassword {
+//     final passwordRegExp = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+//     return passwordRegExp.hasMatch(this);
+//   }
+
+//   bool get isNotNull {
+//     return this != null;
+//   }
+
+  
+// }
+

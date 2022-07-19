@@ -15,8 +15,14 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int currentIndex = 0;
-
+  int _currentIndex = 0;
+  static const List<Color> colors = [
+    AppColors.aptiblueprimary,
+    AppColors.aptiblueprimary,
+    AppColors.aptiblueprimary,
+    AppColors.aptiblueprimary,
+    AppColors.aptiblueprimary
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +49,7 @@ class _MainPageState extends State<MainPage> {
         title: Column(
           children: const [
             Padding(
-              padding: EdgeInsets.only(right: 10),
+              padding: EdgeInsets.only(right: 70),
               child: Text(
                 'Mehmet Özer (2)',
                 style: TextStyle(color: AppColors.aptidarkblue2, fontSize: 18),
@@ -57,41 +63,44 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 0,
+        currentIndex: _currentIndex,
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Padding(
-                padding: EdgeInsets.only(top: 15),
-                child: FaIcon(
-                  FontAwesomeIcons.house,
-                  color: AppColors.aptilightgray4,
-                ),
-              ),
-              label: 'asd'),
+            label: 'Ana sayfa',
+            icon: FaIcon(
+              FontAwesomeIcons.house,
+              //color: AppColors.aptilightgray4,
+            ),
+          ),
           BottomNavigationBarItem(
               icon: FaIcon(
                 FontAwesomeIcons.bullhorn,
-                color: AppColors.aptilightgray4,
+                //color: AppColors.aptilightgray4,
               ),
-              label: 'asd'),
+              label: 'Apti Club'),
           BottomNavigationBarItem(
               icon: FaIcon(
                 FontAwesomeIcons.clipboardList,
-                color: AppColors.aptilightgray4,
+                //color: AppColors.aptilightgray4,
               ),
-              label: 'asd'),
+              label: 'Talepler'),
           BottomNavigationBarItem(
               icon: FaIcon(
                 FontAwesomeIcons.building,
-                color: AppColors.aptilightgray4,
+                // color: AppColors.aptilightgray4,
               ),
-              label: 'asd'),
+              label: 'Dairem'),
           BottomNavigationBarItem(
               icon: FaIcon(
                 FontAwesomeIcons.user,
-                color: AppColors.aptilightgray4,
+                //color: AppColors.aptilightgray4,
               ),
-              label: 'asd'),
+              label: 'Profil'),
         ],
+        onTap: (value) => setState(() => _currentIndex = value),
+        selectedItemColor: colors[_currentIndex],
       ),
       // bottomNavigationBar: BottomNavigationBar(
       //   items: const <BottomNavigationBarItem>[
