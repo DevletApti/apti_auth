@@ -1,7 +1,9 @@
 import 'package:apti_mobile/view/add_new_password_page.dart';
 import 'package:apti_mobile/view/email_verify_page.dart';
+import 'package:apti_mobile/view/forget_password_info_page.dart';
 import 'package:apti_mobile/view/forgot_password_page.dart';
 import 'package:apti_mobile/view/login_page.dart';
+import 'package:apti_mobile/view/register_page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: ForgotPasswordPage.routeName,
+      initialRoute: ForgotPasswordInfoPage.routeName,
       onGenerateRoute: MyPageRoute.generateRoute,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,

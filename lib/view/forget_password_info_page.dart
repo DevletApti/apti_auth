@@ -1,12 +1,12 @@
 import 'package:apti_mobile/localization/locale_keys.g.dart';
+import 'package:apti_mobile/view/forgot_password_page.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:uni_links/uni_links.dart';
 import '../core/colors/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:async';
-import 'dart:io';
 
 import 'add_new_password_page.dart';
 
@@ -40,7 +40,6 @@ class _ForgotPasswordInfoPageState extends State<ForgotPasswordInfoPage> {
     }, onError: (err) {
       // Handle exception by warning the user their action did not succeed
     });
-
   }
 
   @override
@@ -127,28 +126,6 @@ class _ForgotPasswordInfoPageState extends State<ForgotPasswordInfoPage> {
         ),
       ),
     );
-    // const ExpansionTile(
-    //   // childrenPadding:
-    //   //     const EdgeInsets.all(10).copyWith(top: 0),
-    //   //  tilePadding: EdgeInsetsGeometry.lerp(, b, t),
-    //   title: Text('E-posta ulaşmadı mı?'),
-    //   // subtitle: Text('Trailing expansion arrow icon'),
-    //   children: <Widget>[
-    //     ListTile(
-    //         contentPadding: EdgeInsets.only(top: 10),
-    //         title: Text(
-    //           ' * Gönderdiğimiz e-posta "spam" klasörüne düşmüş olabilir.',
-    //           textAlign: TextAlign.left,
-    //         )),
-    //     ListTile(
-    //         title: Text(
-    //       'E-posta adresinizi doğru yazdığınızdan ve spam klasörünüzde ilgili e-postanın olmadığından eminseniz, şifre değişiklik e-postasının tekrar gönderilmesi için tıklayın.',
-    //       textAlign: TextAlign.left,
-    //     )),
-    //   ],
-    // ),
-
-    //  _buildEpostaText(),
   }
 
   Widget _buildEpostaText() {
@@ -189,21 +166,37 @@ class _ForgotPasswordInfoPageState extends State<ForgotPasswordInfoPage> {
                     fontWeight: FontWeight.w600,
                     color: AppColors.aptiblueprimary),
               ),
-              children: const [
-                Text(
+              children: [
+                const Text(
                   '* Gönderdiğimiz e-posta "spam" klasörüne düşmüş olabilir.',
                   style: TextStyle(fontSize: 16, height: 1.4),
                 ),
-                Text(
-                  '* E-posta adresinizi doğru yazdığınızdan ve spam klasörünüzde ilgili e-postanın olmadığından eminseniz, şifre değişiklik e-postasının tekrar gönderilmesi için tıklayın.',
-                  style: TextStyle(fontSize: 16, height: 1.4),
-                ),
+                RichText(
+                  text: TextSpan(children: [
+                    const TextSpan(
+                      text:
+                          '* E-posta adresinizi doğru yazdığınızdan ve spam klasörünüzde ilgili e-postanın olmadığından eminseniz, şifre değişiklik e-postasının tekrar gönderilmesi için ',
+                      style: TextStyle(
+                        fontSize: 16,
+                        height: 1.4,
+                        color: Colors.black,
+                      ),
+                    ),
+                    TextSpan(
+                      text: 'tıklayın.',
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => Navigator.of(context)
+                            .pushNamed(ForgotPasswordPage.routeName),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        height: 1.4,
+                        decoration: TextDecoration.underline,
+                        color: AppColors.aptiblueprimary,
+                      ),
+                    ),
+                  ]),
+                )
               ],
-              // onExpansionChanged: (isExpanded) => Utils.showSnackBar(
-              //   context,
-              //   text: isExpanded ? 'Expand Tile' : 'Shrink Tile',
-              //   color: isExpanded ? Colors.green : Colors.red,
-              // ),
             ),
           ],
         ),
@@ -249,20 +242,4 @@ Widget _buildContent(BuildContext context) {
 
 
 
-
-
-
-// extension extForgotPasswordInfo on String {
- 
-//   bool get isValidPassword {
-//     final passwordRegExp = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
-//     return passwordRegExp.hasMatch(this);
-//   }
-
-//   bool get isNotNull {
-//     return this != null;
-//   }
-
-  
-// }
 

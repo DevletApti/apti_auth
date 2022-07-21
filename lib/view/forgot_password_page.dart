@@ -92,6 +92,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         ),
       ),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
             Padding(
@@ -245,43 +246,47 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       children: [
         Visibility(
             visible: isLoading, child: const CircularProgressIndicator()),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            primary: AppColors.aptiblueprimary,
-            onSurface: Colors.blueAccent,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(16),
+        SizedBox(
+          width: 380,
+          height: 50,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: AppColors.aptiblueprimary,
+              onSurface: Colors.blueAccent,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(16),
+                ),
               ),
             ),
-          ),
-          onPressed: () async {
-            setState(() {
-              isLoading = true;
-            });
-            debugPrint("${emailController.text} from page");
-            await forgetPasswordService!
-                .sendPasswdResetCode(
-                    emailAddress: emailController.text, applicationType: 2)
-                .then((value) async {
-              if (!value) {
-                setState(() {
-                  isLoading = false;
-                  isValidEmail = false;
-                });
-              } else {
-                setState(() {
-                  isLoading = false;
-                });
-                Navigator.of(context)
-                    .pushNamed(ForgotPasswordInfoPage.routeName);
-              }
-            });
-          },
-          child: Text(
-            LocaleKeys.forgot_password_email_forget_card_button_text.tr(),
-            style: const TextStyle(
-              fontSize: 18.0,
+            onPressed: () async {
+              setState(() {
+                isLoading = true;
+              });
+              debugPrint("${emailController.text} from page");
+              await forgetPasswordService!
+                  .sendPasswdResetCode(
+                      emailAddress: emailController.text, applicationType: 2)
+                  .then((value) async {
+                if (!value) {
+                  setState(() {
+                    isLoading = false;
+                    isValidEmail = false;
+                  });
+                } else {
+                  setState(() {
+                    isLoading = false;
+                  });
+                  Navigator.of(context)
+                      .pushNamed(ForgotPasswordInfoPage.routeName);
+                }
+              });
+            },
+            child: Text(
+              LocaleKeys.forgot_password_email_forget_card_button_text.tr(),
+              style: const TextStyle(
+                fontSize: 18.0,
+              ),
             ),
           ),
         ),

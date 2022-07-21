@@ -550,7 +550,7 @@ class _RegisterPageState extends State<RegisterPage> {
               visible: isLoading, child: const CircularProgressIndicator()),
           SizedBox(
             width: 360,
-            height: 48,
+            height: 50,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: AppColors.aptiblueprimary,
