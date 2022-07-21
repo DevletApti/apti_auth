@@ -1,8 +1,9 @@
-import 'package:Apti/core/colors/app_colors.dart';
-import 'package:Apti/view/login_page.dart';
-import 'package:Apti/view/widgets/onboarding_contents.dart';
-import 'package:Apti/view/widgets/size_config.dart';
+import 'package:apti_mobile/core/colors/app_colors.dart';
+import 'package:apti_mobile/view/login_page.dart';
+import 'package:apti_mobile/view/widgets/onboarding_contents.dart';
+import 'package:apti_mobile/view/widgets/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnboardingScreen extends StatefulWidget {
   static const routeName = "/onboarding";
@@ -42,6 +43,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(375, 812));
+
     SizeConfig().init(context);
     double width = SizeConfig.screenW!;
     double height = SizeConfig.screenH!;
@@ -114,12 +117,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   _currentPage + 1 == contents.length
                       ? Container(
+                          //   ScreenUtil().setWidth(17),
+                          //   ScreenUtil().setWidth(16),
                           margin: const EdgeInsets.only(bottom: 40),
                           child: Padding(
                             padding: const EdgeInsets.all(30),
                             child: SizedBox(
-                              width: 350,
-                              height: 55,
+                              width: ScreenUtil().setWidth(350),
+                              height: ScreenUtil().setHeight(55),
                               child: ElevatedButton(
                                 onPressed: () {
                                   Navigator.of(context)
@@ -178,8 +183,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _buildNextBtn(double width) {
     return SizedBox(
-      width: 350,
-      height: 55,
+      width: ScreenUtil().setWidth(350),
+      height: ScreenUtil().setHeight(55),
       child: ElevatedButton(
         onPressed: () {
           _controller.nextPage(

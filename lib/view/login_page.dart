@@ -1,13 +1,13 @@
-import 'package:Apti/view/forgot_password_page.dart';
-import 'package:Apti/view/main_page.dart';
-import 'package:Apti/view/register_page.dart';
-import 'package:Apti/view/widgets/login_header.dart';
+import 'package:apti_mobile/view/forgot_password_page.dart';
+import 'package:apti_mobile/view/main_page.dart';
+import 'package:apti_mobile/view/register_page.dart';
+import 'package:apti_mobile/view/widgets/login_header.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../core/colors/app_colors.dart';
 import '../cubit/login_cubit.dart';
@@ -22,7 +22,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final GlobalKey<FormState> formKey = GlobalKey();
 
   final TextEditingController emailAddressController = TextEditingController();
@@ -34,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
   bool isValid = false;
   String accessToken = '';
   String refreshToken = '';
+  final String baseUrl = 'http://default.api.test.apti.us';
 
   final emailRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
       caseSensitive: false, multiLine: false);
@@ -64,10 +64,22 @@ class _LoginPageState extends State<LoginPage> {
     passwordController.dispose();
   }
 
-  final String baseUrl = 'http://default.api.test.apti.us';
+  snackBar(String? message) {
+    return ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message!),
+        backgroundColor: Colors.orange,
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(375, 812));
+
+    //  left: ScreenUtil().setWidth(17),
+    //          right: ScreenUtil().setHeight(16),
     return BlocProvider(
       create: (context) => LoginCubit(
         formKey,
@@ -93,42 +105,52 @@ class _LoginPageState extends State<LoginPage> {
         autovalidateMode: autovalidateMode(state),
         child: SingleChildScrollView(
           //reverse: true,
-          padding: const EdgeInsets.fromLTRB(5, 30, 5, 50),
+          padding: EdgeInsets.fromLTRB(
+              ScreenUtil().setHeight(5),
+              ScreenUtil().setWidth(30),
+              ScreenUtil().setHeight(5),
+              ScreenUtil().setWidth(50)),
           child: Column(
             children: [
-              const SizedBox(
-                height: 50,
+              SizedBox(
+                height: ScreenUtil().setHeight(50),
               ),
-              const HeaderWidget(),
-              const SizedBox(
-                height: 70,
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                    ScreenUtil().setHeight(10),
+                    ScreenUtil().setWidth(0),
+                    ScreenUtil().setWidth(10),
+                    ScreenUtil().setWidth(0)),
+                child: const HeaderWidget(),
               ),
+              SizedBox(height: ScreenUtil().setHeight(70)),
               Container(
-                width: 340,
-                height: 290,
+                width: ScreenUtil().setWidth(340),
+                height: ScreenUtil().setHeight(348),
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
-                  border:
-                      Border.all(color: AppColors.aptilightgray2, width: 2.0),
+                  border: Border.all(
+                      color: AppColors.aptilightgray2,
+                      width: ScreenUtil().setWidth(2.0)),
                   borderRadius: BorderRadius.circular(16.0),
                 ),
                 child: Column(
                   children: [
                     _buildCardTitle(),
-                    const SizedBox(height: 5),
+                    SizedBox(height: ScreenUtil().setHeight(5)),
                     _buildEmailTitle(),
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: _buildEmailTextField(),
                     ),
                     _buildPasswordTitle(),
-                    const SizedBox(height: 12),
+                    SizedBox(height: ScreenUtil().setHeight(12)),
                     _buildPasswordTextField(),
                     _buildForgetText(context),
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: ScreenUtil().setHeight(20)),
               buildSubmit(context),
               Padding(
                 padding: const EdgeInsets.only(left: 90, top: 16),
@@ -143,8 +165,8 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildEmailTextField() {
     return SizedBox(
-      width: 311,
-      height: 70,
+      width: ScreenUtil().setWidth(311),
+      height: ScreenUtil().setHeight(70),
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: emailAddressController,
@@ -174,8 +196,8 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildPasswordTextField() {
     return SizedBox(
-      width: 311,
-      height: 70,
+      width: ScreenUtil().setWidth(311),
+      height: ScreenUtil().setHeight(70),
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         obscureText: _isVisible ? false : true,
@@ -220,8 +242,8 @@ class _LoginPageState extends State<LoginPage> {
                 visible: isLoading, child: const CircularProgressIndicator()),
           ),
           SizedBox(
-            width: 342,
-            height: 48,
+            width: ScreenUtil().setWidth(342),
+            height: ScreenUtil().setHeight(50),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: AppColors.aptiblueprimary,
@@ -253,7 +275,9 @@ class _LoginPageState extends State<LoginPage> {
 
                 if (accessToken != '') {
                   Navigator.of(context).pushNamed(MainPage.routeName);
-                } else {}
+                } else {
+                  snackBar('E-posta adresiniz ve/veya şifreniz hatalı.');
+                }
               },
               child: Text(LocaleKeys.login_button_login_button_text.tr()),
             ),
@@ -317,12 +341,14 @@ Widget _buildBottomTexts(BuildContext context) {
     children: [
       Text(
         LocaleKeys.login_bottom_text_login_text.tr(),
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+        style: TextStyle(
+            fontSize: ScreenUtil().setSp(16), fontWeight: FontWeight.w400),
       ),
       TextButton(
         style: TextButton.styleFrom(
           primary: AppColors.aptiblueprimary,
-          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          textStyle: TextStyle(
+              fontSize: ScreenUtil().setSp(16), fontWeight: FontWeight.w600),
         ),
         onPressed: () {
           Navigator.of(context).pushNamed(RegisterPage.routeName);

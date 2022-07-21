@@ -1,10 +1,12 @@
-import 'package:Apti/localization/locale_keys.g.dart';
-import 'package:Apti/view/login_page.dart';
+import 'package:apti_mobile/localization/locale_keys.g.dart';
+import 'package:apti_mobile/service/forgot_password_service.dart';
+import 'package:apti_mobile/view/forget_password_info_page.dart';
+import 'package:apti_mobile/view/login_page.dart';
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../core/colors/app_colors.dart';
-import 'change_password_page.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   //EasyLocalization
@@ -21,11 +23,29 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   var formKey = GlobalKey<FormState>();
 
   var emailController = TextEditingController();
+  bool isLoading = false;
+  bool isValidEmail = true;
+  ForgotPasswordService? forgetPasswordService;
+  final String baseUrl = 'http://api.test.apti.us';
+
+  final emailRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+      caseSensitive: false, multiLine: false);
+
+  @override
+  void initState() {
+    forgetPasswordService =
+        ForgotPasswordService(Dio(BaseOptions(baseUrl: baseUrl)));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
 
   void _clearEmailTextField() {
-    // Clear everything in the text field
     emailController.clear();
-    // Call setState to update the UI
     setState(() {});
   }
 
@@ -71,43 +91,45 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           ],
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 50,
-              left: 24,
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 50,
+                left: 24,
+              ),
+              child: SizedBox(
+                  width: 365,
+                  height: 243,
+                  child: Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black12),
+                          borderRadius: BorderRadius.circular(14.0),
+                          color: AppColors.aptilightgray0),
+                      child: Column(
+                        children: [
+                          _buildContent(context),
+                          _buildEpostaText(),
+                          _buildNameTextField(),
+                        ],
+                      ))),
             ),
-            child: SizedBox(
-                width: 365,
-                height: 243,
-                child: Container(
-                    padding: const EdgeInsets.only(left: 10),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black12),
-                        borderRadius: BorderRadius.circular(14.0),
-                        color: AppColors.aptilightgray0),
-                    child: Column(
-                      children: [
-                        _buildContent(context),
-                        _buildEpostaText(),
-                        _buildNameTextField(),
-                      ],
-                    ))),
-          ),
-          Container(
-            width: 365,
-            height: 50,
-            margin: const EdgeInsets.only(
-              top: 20,
-              left: 24,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14.0),
-            ),
-            child: _buildButton(context),
-          )
-        ],
+            Container(
+              width: 365,
+              height: 50,
+              margin: const EdgeInsets.only(
+                top: 20,
+                left: 24,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14.0),
+              ),
+              child: _buildButton(context),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -131,18 +153,28 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       width: 311,
       height: 70,
       child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: emailController,
         keyboardType: TextInputType.emailAddress,
-        // ignore: missing_return
-        validator: (String? value) {
-          if (value!.isEmpty) {
+        validator: (text) {
+          if (text == null || text.isEmpty) {
+            return 'Lütfen e-posta giriniz';
+          }
+          if (!emailRegExp.hasMatch(text)) {
             return LocaleKeys.signin_validation_text_signin_email_valid_text
                 .tr();
+          }
+          if (!isValidEmail) {
+            return 'Incorrect Email';
           }
           return null;
         },
         onChanged: (value) {
-          setState(() {});
+          setState(() {
+            if (!isValidEmail) {
+              isValidEmail = true;
+            }
+          });
         },
         decoration: InputDecoration(
           fillColor: AppColors.aptiwhite,
@@ -209,64 +241,51 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   Widget _buildButton(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary: AppColors.aptiblueprimary,
-        onSurface: Colors.blueAccent,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(16),
+    return Column(
+      children: [
+        Visibility(
+            visible: isLoading, child: const CircularProgressIndicator()),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: AppColors.aptiblueprimary,
+            onSurface: Colors.blueAccent,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(16),
+              ),
+            ),
+          ),
+          onPressed: () async {
+            setState(() {
+              isLoading = true;
+            });
+            debugPrint("${emailController.text} from page");
+            await forgetPasswordService!
+                .sendPasswdResetCode(
+                    emailAddress: emailController.text, applicationType: 2)
+                .then((value) async {
+              if (!value) {
+                setState(() {
+                  isLoading = false;
+                  isValidEmail = false;
+                });
+              } else {
+                setState(() {
+                  isLoading = false;
+                });
+                Navigator.of(context)
+                    .pushNamed(ForgotPasswordInfoPage.routeName);
+              }
+            });
+          },
+          child: Text(
+            LocaleKeys.forgot_password_email_forget_card_button_text.tr(),
+            style: const TextStyle(
+              fontSize: 18.0,
+            ),
           ),
         ),
-      ),
-      onPressed: () {
-        Navigator.of(context).pushNamed(ChangePasswordPage.routeName);
-      },
-      child: Text(
-        LocaleKeys.forgot_password_email_forget_card_button_text.tr(),
-        style: const TextStyle(
-          fontSize: 18.0,
-        ),
-      ),
-      // await _readCredentials();
-      // const Duration(seconds: 2);
-      //   code = ftController!.text +
-      //       scController!.text +
-      //       tdController!.text +
-      //       frController!.text +
-      //       fvController!.text +
-      //       textEditingController!.text;
-      //   const Duration(seconds: 1);
-      //   debugPrint(attemptId);
-      //   context
-      //       .read<VerifyEmailCubit>()
-      //       .service
-      //       .verifyEmail(attemptId: attemptId!, code: code!)
-      //       .then((value) async {
-      //     await _checkVerify;
-      //     debugPrint("verifyEmail -> ${value!.result}   AttemptId -> $attemptId ");
-      //   });
-      //   const Duration(milliseconds: 2);
-      //   verifyEmail!
-      //       ? Navigator.of(context)
-      //           .pushNamed(EmailVerifyPage.routeName)
-      //       : setState(() => isValid = false);
+      ],
     );
   }
 }
-
-
-// extension extForgotPassword on String {
-  
-
-//   bool get isValidPassword {
-//     final passwordRegExp = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
-//     return passwordRegExp.hasMatch(this);
-//   }
-
-//   bool get isNotNull {
-//     return this != null;
-//   }
-
- 
-// }

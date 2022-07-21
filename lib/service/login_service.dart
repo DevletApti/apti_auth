@@ -16,21 +16,17 @@ class LoginService extends ILoginService {
     prefs.setString(key, value);
   }
 
-  void saveInteger(String key, int value) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt(key, value);
-  }
-
   @override
   Future<LoginResponseModel?> userLogin(
       {required String emailAddress, required String password}) async {
     Map<String, dynamic> reqData = {
       "userNameOrEmailAddress": emailAddress,
       "password": password,
-    };  
+    };
     LoginResponseModel data;
     dio.options.headers['Abp.TenantId'] = 1;
-    var response = await dio.post(loginPath, data: reqData);
+    var response = await dio.post(loginPath,
+        data: reqData, options: Options(validateStatus: (status) => true));
 
     if (response.statusCode == HttpStatus.ok) {
       data = LoginResponseModel.fromJson(response.data);

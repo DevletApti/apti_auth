@@ -1,26 +1,3 @@
-
-// import '../model/login_response_model.dart';
-
-// abstract class LoginStates {}
-
-// class LoginInitialState extends LoginStates {}
-
-// class LoginLoadingState extends LoginStates {}
-
-// class LoginSuccessState extends LoginStates {
-//   final LoginResponseModel? loginModel;
-
-//   LoginSuccessState(this.loginModel);
-// }
-
-// class LoginErrorState extends LoginStates {
-//   final String? error;
-
-//   LoginErrorState({this.error});
-// }
-
-// class LoginChangePasswordVisibilityState extends LoginStates {}
-
 import '../model/login_response_model.dart';
 
 abstract class LoginState {}

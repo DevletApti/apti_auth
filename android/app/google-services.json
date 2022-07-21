@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "762178608642",
-    "project_id": "aptus-cc838",
-    "storage_bucket": "aptus-cc838.appspot.com"
+    "project_number": "63425246816",
+    "project_id": "apti-3b7db",
+    "storage_bucket": "apti-3b7db.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:762178608642:android:c206987481cd4c8bd5511b",
+        "mobilesdk_app_id": "1:63425246816:android:7f75259220fa47a0387505",
         "android_client_info": {
-          "package_name": "com.example.apti_auth"
+          "package_name": "com.apti.apti_mobile"
         }
       },
       "oauth_client": [
         {
-          "client_id": "762178608642-5vlhnhdved4nv8ko2rct92u7ri9a9pml.apps.googleusercontent.com",
+          "client_id": "63425246816-2n2sk7kkbvoio628226u2kdr7m4lb0d4.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCOxPOMPMUKXpp3URdbKRoMXF__Nm6EE0U"
+          "current_key": "AIzaSyDsN4P7GfjjOJYNv2WagNyv4RpWBxV_jEE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "762178608642-5vlhnhdved4nv8ko2rct92u7ri9a9pml.apps.googleusercontent.com",
+              "client_id": "63425246816-2n2sk7kkbvoio628226u2kdr7m4lb0d4.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

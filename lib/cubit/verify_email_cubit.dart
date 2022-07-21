@@ -1,47 +1,4 @@
-// import 'package:Apti/core/end_points/end_points.dart';
-// import 'package:Apti/cubit/verify_email_state.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-
-// import 'package:Apti/service/dio_helper.dart';
-
-// class VerifyEmailCubit extends Cubit<VerifyEmailStates> {
-//   // final TextEditingController nameController;
-//   // final TextEditingController surnameController;
-//   // final TextEditingController emailController;
-//   // final TextEditingController passwordController;
-//   // final TextEditingController phoneController;
-
-//   // final GlobalKey<FormState> formKey;
-//   VerifyEmailCubit() : super(VerifyEmailInitialState());
-//   static VerifyEmailCubit get(context) => BlocProvider.of(context);
-//   DioHelper func = DioHelper();
-//   sendEmail({
-//     String? attemptId,
-//     String? code,
-//   }) {
-//     emit(VerifyEmailLoadingState());
-//     func.getData(
-//       url: VERIFY_EMAIL,
-//       queryParameters: {'attemptId': attemptId, 'code': code},
-//     ).then(
-//       (value) {
-//         emit(
-//           VerifyEmailSuccessState(),
-//         );
-//       },
-//     ).catchError((error) {
-//       print(error.toString());
-//       emit(
-//         VerifyEmailErrorState(
-//           error: error.toString(),
-//         ),
-//       );
-//     });
-//   }
-// }
-
-
-import 'package:Apti/cubit/verify_email_state.dart';
+import 'package:apti_mobile/cubit/verify_email_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 

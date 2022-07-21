@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 
 import '../core/navigation/constants/api_constants.dart';
-import '../model/login_request_model.dart';
 import '../model/login_response_model.dart';
 
 abstract class ILoginService {

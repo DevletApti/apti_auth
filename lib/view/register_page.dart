@@ -1,6 +1,6 @@
-import 'package:Apti/view/email_verify_page.dart';
-import 'package:Apti/view/widgets/country_code_widget/intl_phone_field.dart';
-import 'package:Apti/view/widgets/login_header.dart';
+import 'package:apti_mobile/view/email_verify_page.dart';
+import 'package:apti_mobile/view/widgets/country_code_widget/intl_phone_field.dart';
+import 'package:apti_mobile/view/widgets/login_header.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,7 @@ import '../cubit/send_email_state.dart';
 import '../localization/locale_keys.g.dart';
 import '../service/register_service.dart';
 import 'login_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RegisterPage extends StatefulWidget {
   static const routeName = '/register';
@@ -29,7 +30,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   final String baseUrl = 'http://api.test.apti.us';
 
@@ -74,35 +74,29 @@ class _RegisterPageState extends State<RegisterPage> {
       caseSensitive: false, multiLine: false);
 
   void _clearNameTextField() {
-    // Clear everything in the text field
     nameController.clear();
-    // Call setState to update the UI
     setState(() {});
   }
 
   void _clearSurnameTextField() {
-    // Clear everything in the text field
     surnameController.clear();
-    // Call setState to update the UI
     setState(() {});
   }
 
   void _clearEmailTextField() {
-    // Clear everything in the text field
     emailController.clear();
-    // Call setState to update the UI
     setState(() {});
   }
 
   void _clearPhoneTextField() {
-    // Clear everything in the text field
     phoneController.clear();
-    // Call setState to update the UI
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(375, 1060));
+
     return BlocProvider(
       create: (BuildContext context) => SendEmailCubit(
         formKey,
@@ -112,7 +106,6 @@ class _RegisterPageState extends State<RegisterPage> {
         listener: (context, state) {
           if (state is SendComplete) {
             if (state.isComplete) {
-              //  CacheHelper.saveData(key: '', value: '').then((value) => null)
             }
           }
         },
@@ -129,11 +122,11 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        toolbarHeight: 80.0,
+        toolbarHeight: ScreenUtil().setHeight(80.0), //80.0
         backgroundColor: AppColors.aptiwhite,
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 10),
+            padding: EdgeInsets.only(right: ScreenUtil().setHeight(10)),
             child: Row(
               children: const [],
             ),
@@ -158,9 +151,7 @@ class _RegisterPageState extends State<RegisterPage> {
             key: formKey,
             child: Column(
               children: [
-                const SizedBox(height: 15),
-
-                // ignore: sized_box_for_whitespace
+                SizedBox(height: ScreenUtil().setHeight(15)),
                 Container(
                   width: 370,
                   height: 790,
@@ -448,7 +439,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: _clearEmailTextField,
                   icon: const Icon(Icons.clear)),
         ),
-        onChanged: (_) => setState(() {}),
+        onChanged: (_) => setState(() {
+          if (isNotAvailableEmail) {
+            isNotAvailableEmail = false;
+          }
+        }),
       ),
     );
   }

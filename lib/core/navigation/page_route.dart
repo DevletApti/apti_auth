@@ -1,8 +1,9 @@
-import 'package:Apti/view/onboarding_page.dart';
+import 'package:apti_mobile/view/onboarding_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../view/add_new_password_page.dart';
-import '../../view/change_password_page.dart';
+import '../../view/change_pass_state_error_page.dart';
+import '../../view/change_pass_state_success_page.dart';
 import '../../view/email_verify_page.dart';
 import '../../view/forget_password_info_page.dart';
 import '../../view/forgot_password_page.dart';
@@ -23,7 +24,7 @@ class MyPageRoute {
         return MaterialPageRoute(builder: (context) => LoginPage());
 
       case RegisterPage.routeName:
-        return MaterialPageRoute(builder: (context) => RegisterPage());
+        return MaterialPageRoute(builder: (context) => const RegisterPage());
       case EmailVerifyPage.routeName:
         return MaterialPageRoute(builder: (context) => const EmailVerifyPage());
       case ForgotPasswordPage.routeName:
@@ -37,9 +38,13 @@ class MyPageRoute {
         return MaterialPageRoute(
             builder: (context) => const AddNewPasswordPage());
 
-      case ChangePasswordPage.routeName:
+      case ChangePassStatePage.routeName:
         return MaterialPageRoute(
-            builder: (context) => const ChangePasswordPage());
+            builder: (context) => const ChangePassStatePage());
+
+      case ChangePassSuccessPage.routeName:
+        return MaterialPageRoute(
+            builder: (context) => const ChangePassSuccessPage());
 //ForgotPasswordPage
       default:
         return MaterialPageRoute(builder: (context) => const MainPage());

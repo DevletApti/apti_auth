@@ -4,6 +4,9 @@
         "aptilightgray",
         "aptiwhite",
         "Campain",
-        "prefs"
+        "passreset",
+        "prefs",
+        "resetpass",
+        "sendreset"
     ]
 }

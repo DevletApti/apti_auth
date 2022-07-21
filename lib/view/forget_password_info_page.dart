@@ -1,7 +1,14 @@
-import 'package:Apti/localization/locale_keys.g.dart';
+import 'package:apti_mobile/localization/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:uni_links/uni_links.dart';
 import '../core/colors/app_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'dart:async';
+import 'dart:io';
+
+import 'add_new_password_page.dart';
 
 class ForgotPasswordInfoPage extends StatefulWidget {
   //EasyLocalization
@@ -21,6 +28,33 @@ class _ForgotPasswordInfoPageState extends State<ForgotPasswordInfoPage> {
   UniqueKey? keyTile;
   bool isExpanded = false;
 
+  StreamSubscription? _sub;
+
+  Future<void> initUniLinks() async {
+    _sub = linkStream.listen((String? link) {
+      if (link != null) {
+        var uri = Uri.parse(link);
+        debugPrint("$uri");
+        Navigator.of(context).pushNamed(AddNewPasswordPage.routeName);
+      }
+    }, onError: (err) {
+      // Handle exception by warning the user their action did not succeed
+    });
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initUniLinks();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _sub?.cancel();
+  }
+
   void expandTile() {
     setState(() {
       isExpanded = true;
@@ -37,6 +71,7 @@ class _ForgotPasswordInfoPageState extends State<ForgotPasswordInfoPage> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context, designSize: const Size(305, 785));
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 60.0,
@@ -57,7 +92,7 @@ class _ForgotPasswordInfoPageState extends State<ForgotPasswordInfoPage> {
         title: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 70),
+              padding: EdgeInsets.only(left: ScreenUtil().setHeight(17)),
               child: Text(
                 LocaleKeys.forgot_password_email_forget_password_appbar.tr(),
                 style: const TextStyle(
@@ -124,7 +159,7 @@ class _ForgotPasswordInfoPageState extends State<ForgotPasswordInfoPage> {
         textAlign: TextAlign.left,
         maxLines: 5,
         style: TextStyle(
-          fontSize: 15,
+          fontSize: 18,
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -133,32 +168,44 @@ class _ForgotPasswordInfoPageState extends State<ForgotPasswordInfoPage> {
 
   Widget buildText(BuildContext context) => Theme(
         data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
-        child: ExpansionTile(
-          key: keyTile,
-          initiallyExpanded: isExpanded,
-          childrenPadding: const EdgeInsets.all(15).copyWith(top: 0),
-          title: const Text(
-            'E-posta ulaşmadı mı?',
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: AppColors.aptiblueprimary),
-          ),
-          children: const [
-            Text(
-              '* Gönderdiğimiz e-posta "spam" klasörüne düşmüş olabilir.',
-              style: TextStyle(fontSize: 18, height: 1.4),
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            const Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                'ex***@gmail.com adresinize bir e-posta gönderdik. E-posta adresinize gelen linke tıklayıp yeni şifrenizi belirleyebilirsiniz.',
+                style: TextStyle(fontSize: 16, height: 1.4),
+              ),
             ),
-            Text(
-              '* E-posta adresinizi doğru yazdığınızdan ve spam klasörünüzde ilgili e-postanın olmadığından eminseniz, şifre değişiklik e-postasının tekrar gönderilmesi için tıklayın.',
-              style: TextStyle(fontSize: 18, height: 1.4),
+            ExpansionTile(
+              key: keyTile,
+              initiallyExpanded: isExpanded,
+              childrenPadding: const EdgeInsets.all(15).copyWith(top: 0),
+              title: const Text(
+                'E-posta ulaşmadı mı?',
+                style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.aptiblueprimary),
+              ),
+              children: const [
+                Text(
+                  '* Gönderdiğimiz e-posta "spam" klasörüne düşmüş olabilir.',
+                  style: TextStyle(fontSize: 16, height: 1.4),
+                ),
+                Text(
+                  '* E-posta adresinizi doğru yazdığınızdan ve spam klasörünüzde ilgili e-postanın olmadığından eminseniz, şifre değişiklik e-postasının tekrar gönderilmesi için tıklayın.',
+                  style: TextStyle(fontSize: 16, height: 1.4),
+                ),
+              ],
+              // onExpansionChanged: (isExpanded) => Utils.showSnackBar(
+              //   context,
+              //   text: isExpanded ? 'Expand Tile' : 'Shrink Tile',
+              //   color: isExpanded ? Colors.green : Colors.red,
+              // ),
             ),
           ],
-          // onExpansionChanged: (isExpanded) => Utils.showSnackBar(
-          //   context,
-          //   text: isExpanded ? 'Expand Tile' : 'Shrink Tile',
-          //   color: isExpanded ? Colors.green : Colors.red,
-          // ),
         ),
       );
 }

@@ -1,9 +1,15 @@
-import 'package:Apti/localization/locale_keys.g.dart';
-import 'package:Apti/view/widgets/login_header.dart';
+import 'package:apti_mobile/localization/locale_keys.g.dart';
+import 'package:apti_mobile/view/change_pass_state_error_page.dart';
+import 'package:apti_mobile/view/widgets/login_header.dart';
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:uni_links/uni_links.dart';
 
 import '../core/colors/app_colors.dart';
+import '../service/forgot_password_service.dart';
+import 'change_pass_state_success_page.dart';
 
 class AddNewPasswordPage extends StatefulWidget {
   //EasyLocalization
@@ -19,7 +25,31 @@ class AddNewPasswordPage extends StatefulWidget {
 class _AddNewPasswordPageState extends State<AddNewPasswordPage> {
   var formKey = GlobalKey<FormState>();
 
+  bool isValid = false;
+  bool _isVisible = false;
+  bool isLoading = false;
   var passwordController = TextEditingController();
+  ForgotPasswordService? forgetPasswordService;
+  final String baseUrl = 'http://api.test.apti.us';
+
+  @override
+  void initState() {
+    forgetPasswordService =
+        ForgotPasswordService(Dio(BaseOptions(baseUrl: baseUrl)));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void updateStatus() {
+    setState(() {
+      _isVisible = !_isVisible;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,43 +74,45 @@ class _AddNewPasswordPageState extends State<AddNewPasswordPage> {
           ],
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 50,
-              left: 24,
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 50,
+                left: 24,
+              ),
+              child: SizedBox(
+                  width: 365,
+                  height: 243,
+                  child: Container(
+                      padding: const EdgeInsets.only(left: 10),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black12),
+                          borderRadius: BorderRadius.circular(14.0),
+                          color: AppColors.aptilightgray0),
+                      child: Column(
+                        children: [
+                          _buildContent(context),
+                          _buildEpostaText(),
+                          _buildNameTextField(),
+                        ],
+                      ))),
             ),
-            child: SizedBox(
-                width: 365,
-                height: 243,
-                child: Container(
-                    padding: const EdgeInsets.only(left: 10),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black12),
-                        borderRadius: BorderRadius.circular(14.0),
-                        color: AppColors.aptilightgray0),
-                    child: Column(
-                      children: [
-                        _buildContent(context),
-                        _buildEpostaText(),
-                        _buildNameTextField(),
-                      ],
-                    ))),
-          ),
-          Container(
-            width: 365,
-            height: 50,
-            margin: const EdgeInsets.only(
-              top: 20,
-              left: 24,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14.0),
-            ),
-            child: _buildButton(context),
-          )
-        ],
+            Container(
+              width: 365,
+              height: 50,
+              margin: const EdgeInsets.only(
+                top: 20,
+                left: 24,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14.0),
+              ),
+              child: _buildButton(context),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -90,36 +122,39 @@ class _AddNewPasswordPageState extends State<AddNewPasswordPage> {
       width: 311,
       height: 70,
       child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        obscureText: _isVisible ? false : true,
         controller: passwordController,
         keyboardType: TextInputType.visiblePassword,
-        // ignore: missing_return
-        validator: (String? value) {
-          if (value!.isEmpty) {
-            return LocaleKeys.signin_validation_text_signin_password_valid_text
+        validator: (text) {
+          if (text == null || text.isEmpty) {
+            return 'Boş lan';
+          }
+          if (text.length < 4 || text.length > 15) {
+            return LocaleKeys.login_validation_text_login_password_valid_text
                 .tr();
           }
           return null;
         },
         decoration: InputDecoration(
-          fillColor: AppColors.aptiwhite,
-          filled: true,
-          hintText: LocaleKeys.signin_card_signin_password_inside_text.tr(),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: const BorderSide(color: Colors.grey),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5),
-            borderSide: const BorderSide(color: Colors.grey),
+            borderSide:
+                const BorderSide(color: AppColors.aptidarkgray5, width: 2.0),
+            borderRadius: BorderRadius.circular(8.0),
           ),
-          border: OutlineInputBorder(
-            // on error only
-            borderRadius: BorderRadius.circular(5),
-            borderSide: const BorderSide(color: Colors.grey),
+          suffixIcon: IconButton(
+            color: AppColors.aptilightgray4,
+            onPressed: updateStatus,
+            icon: Icon(_isVisible ? Icons.visibility : Icons.visibility_off),
           ),
         ),
-
-        // obscureText: RegisterCubit.get(context).isPassword,
+        onChanged: (_) => setState(() {}),
+        onEditingComplete: () => setState(() {
+          isValid = !isValid;
+        }),
       ),
     );
   }
@@ -186,36 +221,38 @@ class _AddNewPasswordPageState extends State<AddNewPasswordPage> {
           ),
         ),
       ),
-      onPressed: () {},
+      onPressed: isValid
+          ? () async {
+              // setState(() {
+              //   isLoading = true;
+              // });
+              await forgetPasswordService!
+                  .resetPasswd(
+                      password: passwordController.text, c: "occa")
+                  .then((value) async {
+                    debugPrint("$value");
+                if (value) {
+                  // setState(() {
+                  //   isLoading = false;
+                  // });
+                  Navigator.of(context)
+                      .pushNamed(ChangePassSuccessPage.routeName);
+                } else {
+                  // setState(() {
+                  //   isLoading = false;
+                  // });
+                  Navigator.of(context)
+                      .pushNamed(ChangePassStatePage.routeName);
+                }
+              });
+            }
+          : null,
       child: Text(
         LocaleKeys.change_password_card_change_password_button_text.tr(),
         style: const TextStyle(
           fontSize: 18.0,
         ),
       ),
-      // await _readCredentials();
-      // const Duration(seconds: 2);
-      //   code = ftController!.text +
-      //       scController!.text +
-      //       tdController!.text +
-      //       frController!.text +
-      //       fvController!.text +
-      //       textEditingController!.text;
-      //   const Duration(seconds: 1);
-      //   debugPrint(attemptId);
-      //   context
-      //       .read<VerifyEmailCubit>()
-      //       .service
-      //       .verifyEmail(attemptId: attemptId!, code: code!)
-      //       .then((value) async {
-      //     await _checkVerify;
-      //     debugPrint("verifyEmail -> ${value!.result}   AttemptId -> $attemptId ");
-      //   });
-      //   const Duration(milliseconds: 2);
-      //   verifyEmail!
-      //       ? Navigator.of(context)
-      //           .pushNamed(EmailVerifyPage.routeName)
-      //       : setState(() => isValid = false);
     );
   }
 }

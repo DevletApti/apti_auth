@@ -1,13 +1,14 @@
-import 'package:Apti/cubit/verify_email_cubit.dart';
-import 'package:Apti/cubit/verify_email_state.dart';
-import 'package:Apti/localization/locale_keys.g.dart';
-import 'package:Apti/view/login_page.dart';
+import 'package:apti_mobile/cubit/verify_email_cubit.dart';
+import 'package:apti_mobile/cubit/verify_email_state.dart';
+import 'package:apti_mobile/localization/locale_keys.g.dart';
+import 'package:apti_mobile/view/login_page.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../core/colors/app_colors.dart';
 import '../service/register_service.dart';
@@ -122,6 +123,7 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message!),
+        backgroundColor: Colors.orange,
         duration: const Duration(seconds: 2),
       ),
     );
@@ -129,6 +131,11 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_label
+    resizeToAvoidBottomInset:
+    false;
+    ScreenUtil.init(context, designSize: const Size(305, 785));
+
     return BlocProvider(
       create: (BuildContext context) => VerifyEmailCubit(
         formKey,
@@ -177,34 +184,46 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
           ],
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          const SizedBox(height: 40),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 10, 10, 20),
-            child: Container(
-              width: 380,
-              height: 290,
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: ScreenUtil().setHeight(50)),
+            Padding(
+              padding: EdgeInsets.only(
+                left: ScreenUtil().setWidth(17),
+                right: ScreenUtil().setWidth(16),
+              ),
+              child: Container(
+                width: ScreenUtil().setWidth(380),
+                height: ScreenUtil().setHeight(290),
+                // width: 380,
+                //height: 290,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black12),
+                  borderRadius: BorderRadius.circular(14.0),
+                ),
+                child: _buildContent(context),
+              ),
+            ),
+            Container(
+              width: ScreenUtil().setWidth(380),
+              height: ScreenUtil().setHeight(70),
+              // width: 380,
+              //height: 70,
+              margin: EdgeInsets.only(
+                top: ScreenUtil().setHeight(20),
+                left: ScreenUtil().setWidth(18),
+              ),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black12),
                 borderRadius: BorderRadius.circular(14.0),
               ),
-              child: _buildContent(context),
-            ),
-          ),
-          Container(
-            width: 380,
-            height: 70,
-            margin: const EdgeInsets.only(
-              top: 20,
-              left: 18,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14.0),
-            ),
-            child: _buildButton(context),
-          )
-        ],
+              child: Padding(
+                padding: EdgeInsets.only(right: ScreenUtil().setWidth(13)),
+                child: _buildButton(context),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -212,39 +231,53 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
   Widget _buildContent(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(
-          height: 20,
+        SizedBox(
+          height: ScreenUtil().setHeight(20),
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 120),
+          padding: EdgeInsets.fromLTRB(
+              //right: 120
+              // right: ScreenUtil().setWidth(62)
+              ScreenUtil().setWidth(10),
+              ScreenUtil().setHeight(0),
+              ScreenUtil().setWidth(80),
+              ScreenUtil().setHeight(0)),
           child: Text(
             LocaleKeys.app_otp_otp_card_title_text.tr(),
             textAlign: TextAlign.start,
-            style: const TextStyle(
-              fontSize: 18,
+            style: TextStyle(
+              fontSize: ScreenUtil().setSp(14),
               fontWeight: FontWeight.w600,
             ),
           ),
         ),
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: ScreenUtil().setHeight(10),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+          padding: EdgeInsets.fromLTRB(
+              ScreenUtil().setWidth(16),
+              ScreenUtil().setHeight(0),
+              ScreenUtil().setWidth(10),
+              ScreenUtil().setHeight(0)),
           child: Text(
             LocaleKeys.app_otp_otp_card_desc_text.tr(),
-            style: const TextStyle(
-              fontSize: 16.0,
+            style: TextStyle(
+              fontSize: ScreenUtil().setSp(11),
             ),
           ),
         ),
-        const SizedBox(
-          height: 15,
+        SizedBox(
+          height: ScreenUtil().setHeight(9),
         ),
         Row(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+              padding: EdgeInsets.fromLTRB(
+                  ScreenUtil().setWidth(16),
+                  ScreenUtil().setHeight(0),
+                  ScreenUtil().setWidth(10),
+                  ScreenUtil().setHeight(0)),
               child: Text(
                 '($emailAddress)',
                 textAlign: TextAlign.left,
@@ -254,34 +287,39 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(
-              LocaleKeys.app_otp_otp_card_change_email_text_button.tr(),
-              style: const TextStyle(
-                  color: AppColors.aptiblueprimary,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700),
-            ),
+            TextButton(
+                child: Text(
+                  LocaleKeys.app_otp_otp_card_change_email_text_button.tr(),
+                  style: TextStyle(
+                      color: AppColors.aptiblueprimary,
+                      fontSize: ScreenUtil().setSp(11),
+                      fontWeight: FontWeight.w700),
+                ),
+                onPressed: () {
+                  // print('Pressed');
+                }),
           ],
         ),
-        const SizedBox(
-          height: 20,
+        SizedBox(
+          height: ScreenUtil().setHeight(14),
         ),
-        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          _buildFirstCell(context),
-          _buildSecondCell(context),
-          _buildThirdCell(context),
-          _buildFourCell(context),
-          _buildFifeCell(context),
-          _buildLastCell(context),
-        ]),
+        Padding(
+          padding: EdgeInsets.only(left: ScreenUtil().setWidth(6)),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+            _buildFirstCell(context),
+            _buildSecondCell(context),
+            _buildThirdCell(context),
+            _buildFourCell(context),
+            _buildFifeCell(context),
+            _buildLastCell(context),
+          ]),
+        ),
         if (!isValid)
           Column(
             children: [
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: ScreenUtil().setHeight(10),
               ),
               Text(
                 LocaleKeys.app_otp_otp_card_valid_text.tr(),
@@ -293,11 +331,11 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
             ],
           ),
         !isValid
-            ? const SizedBox(
-                height: 30,
+            ? SizedBox(
+                height: ScreenUtil().setHeight(30),
               )
-            : const SizedBox(
-                height: 20,
+            : SizedBox(
+                height: ScreenUtil().setHeight(20),
               ),
         Text(
           LocaleKeys.app_otp_otp_card_resend_code_text_button.tr(),
@@ -312,11 +350,14 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
 
   Widget _buildLastCell(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-        right: 9,
+      margin: EdgeInsets.only(
+        right: ScreenUtil().setHeight(12),
       ),
-      width: 50,
-      height: 49,
+
+      width: ScreenUtil().setWidth(35),
+      height: ScreenUtil().setHeight(46),
+      //width: 50,
+      // height: 49,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border:
@@ -345,11 +386,11 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
 
   Widget _buildFifeCell(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-        right: 9,
+      margin: EdgeInsets.only(
+        right: ScreenUtil().setHeight(9),
       ),
-      width: 50,
-      height: 49,
+      width: ScreenUtil().setHeight(46),
+      height: ScreenUtil().setHeight(46),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border:
@@ -378,11 +419,11 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
 
   Widget _buildFourCell(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-        right: 9,
+      margin: EdgeInsets.only(
+        right: ScreenUtil().setHeight(9),
       ),
-      width: 50,
-      height: 49,
+      width: ScreenUtil().setHeight(46),
+      height: ScreenUtil().setHeight(46),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
@@ -410,11 +451,11 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
 
   Widget _buildThirdCell(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-        right: 9,
+      margin: EdgeInsets.only(
+        right: ScreenUtil().setHeight(9),
       ),
-      width: 50,
-      height: 49,
+      width: ScreenUtil().setHeight(46),
+      height: ScreenUtil().setHeight(46),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
@@ -442,11 +483,11 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
 
   Widget _buildSecondCell(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-        right: 9,
+      margin: EdgeInsets.only(
+        right: ScreenUtil().setHeight(9),
       ),
-      width: 50,
-      height: 49,
+      width: ScreenUtil().setHeight(46),
+      height: ScreenUtil().setHeight(46),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
@@ -474,11 +515,11 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
 
   Widget _buildFirstCell(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(
-        right: 9,
+      margin: EdgeInsets.only(
+        right: ScreenUtil().setHeight(5),
       ),
-      width: 50,
-      height: 49,
+      width: ScreenUtil().setHeight(46),
+      height: ScreenUtil().setHeight(46),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border:
