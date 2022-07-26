@@ -1,3 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
+
+import '../../localization/locale_keys.g.dart';
+
 class OnboardingContents {
   final String title;
   final String image;
@@ -9,26 +13,26 @@ class OnboardingContents {
 
 List<OnboardingContents> contents = [
   OnboardingContents(
-    title: "Cebinizdeki Yaşam Asistanınız",
+    title: LocaleKeys.onboard1.tr(),
     image: "asset/image/onboard1_image.png",
-    desc: "Site yönetiminize dair tüm işlemler tek dokunuşla eliniizn altında.",
+    desc: LocaleKeys.onboard1_description.tr(),
   ),
   OnboardingContents(
-    title: "Avantajlar Sizi Bekliyor",
+    title: LocaleKeys.onboard2.tr(),
     image: "asset/image/onboard2_image.png",
     desc:
-        "Apti’ye kayıt olduktan sonra site yönetiminizin onayıyla kullanmaya başlayabilir, Apti’nin ayrıcaklıklı dünyasıyla tanışabilirsiniz. ",
+       LocaleKeys.onboard2_description.tr(),
   ),
   OnboardingContents(
-    title: "Pratik Online İşlemler",
+    title: LocaleKeys.onboard3.tr(),
     image: "asset/image/onboard3_image.png",
     desc:
-        "Yapay zeka ile yaşam alanınızdaki her türlü işlemlerinizde pratik, hızlı ve akılcı çözümlerden yararlanın.",
+         LocaleKeys.onboard3_description.tr(),
   ),
   OnboardingContents(
-    title: "İnteraktif Site Yaşamı",
+    title: LocaleKeys.onboard4.tr(),
     image: "asset/image/onboard4_image.png",
     desc:
-        "Kolay erişim, zaman tasarrufu, şeffaf yönetim anlayışı ve katılımcı bir site yaşamı Apti’de sizleri bekliyor.",
+        LocaleKeys.onboard4_description.tr(),
   ),
 ];

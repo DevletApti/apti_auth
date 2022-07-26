@@ -11,7 +11,9 @@
 
     "onboard_button":{
     "onboard_blue_button":"Sonraki",    
-    "onboard_text_button":"Atla"    
+    "onboard_text_button":"Atla" ,
+    "onboard_start_button":"Başla"
+       
     },
     "main_appbar_titles":{
      "appbar_authpage_title":"Yeni Nesil Yaşam Asistanınız"
@@ -33,8 +35,11 @@
      
    },
    "login_validation_text":{
+  
     "login_email_valid_text":"Lütfen geçerli bir e-posta adresi giriniz",
-    "login_password_valid_text":"Şifreniz 4 ile 15 karakter arasında olmalıdır"
+    "login_password_valid_text":"Şifreniz 4 ile 15 karakter arasında olmalıdır",
+    "login_email_valid_text_isemty":"Lütfen e-posta giriniz",
+    "login_password_valid_isemty":"Lütfen Şifre giriniz"
  },
   "login_error_textbutton":{
     "login_isempty_text":"Lütfen bu alanları boş bırakmayınız",
@@ -47,7 +52,7 @@
    "forget_card_email_text":"E-posta",
    "forget_card_button_text":"Şifremi Yenile",
    "forget_card_email_succes_title_text":"Şifre Değişikliği Bağlantısı E-posta Adresinize Gönderildi!",
-   "forget_card_email_succes_desc_text":"ex***@gmail.com adresinize bir e-posta gönderdik. E-posta adresinize gelen linke tıklayıp yeni şifrenizi belirleyebilirsiniz.",
+   "forget_card_email_succes_desc_text":"adresinize bir e-posta gönderdik. E-posta adresinize gelen linke tıklayıp yeni şifrenizi belirleyebilirsiniz.",
    "forget_card_email_check_text":"E-posta ulaşmadı mı?",
    "forget_card_email_spam_text":"Gönderdiğimiz e-posta spam klasörüne düşmüş olabilir.",
    "forget_card_email_resend_text":"E-posta adresinizi doğru yazdığınızdan ve spam klasörünüzde ilgili e-posta'nın olmadığından eminseniz, şifre değişiklik e-postasının tekrar gönderilmesi için tıklayın." 
@@ -77,14 +82,23 @@
    "signin_email":"E-posta",
    "signin_email_inside_text":"Sizin@email.com",
    "sign_in_phone_number":"Cep Telefonu",
+   "sign_in_phone_number_search_card_title":"Ülke kodu",
+   "sign_in_phone_number_search_inside_text":"Ülke kodu Ara",
    "signin_password":"Şifre",
    "signin_password_inside_text":"Şifreniz",
    "signin_offer_desc_text":"Kampanyalardan haberdar olmak için Riza Metni kapsamında electronik ileti almak istemiyorum",
    "signin_page_button":"Kayıt Ol",
    "signin_account_check_text":"Hesabın var mı?",
    "signin_page_enter_text_button":"Giriş Yap",
-   "signin_bottom_desc_text":"Kişisel verileriniz  Aydınlatma Metni kapsamında işlenmektedir. Kayıt Ol butonuna basarak Kişisel Verilerin Korunması Politikası'nı, Gizlilik Politikası'nı, Kullanıcı Sözleşmesi'ni ve Çerez Politikası'nı okuduğunuzu ve kabul ettiğinizi onaylıyorsunuz."
-
+   "signin_bottom_desc_text_1":"Kişisel verileriniz",
+   "signin_bottom_desc_text_2":"Aydınlatma Metni",
+   "signin_bottom_desc_text_3":"kapsamında işlenmektedir.",
+   "signin_bottom_desc_text_4":"Kişisel Verilerin Korunması Politikasını,",
+   "signin_bottom_desc_text_5":"Gizlilik Politikasını,",
+   "signin_bottom_desc_text_6":"'Kullanıcı Sözleşmesini",
+   "signin_bottom_desc_text_7":"Çerez Politikasını",
+   "signin_bottom_desc_text_8":"okudum ve kabul ediyorum."
+   
 },
 "signin_validation_text":{
     "signin_name_valid_text":"Lütfen geçerli bir ad giriniz",
@@ -92,7 +106,16 @@
     "signin_email_valid_text":"Lütfen geçerli bir e-posta adresi giriniz",
     "signin_phone_valid_text":"Cep Telefonu hatalı",
     "signin_password_valid_text":"Şifreniz 4 ile 15 karakter arasında olmalıdır."
+
  },
+ "signin_validation_isemty_fields":{
+  "signin_name_valid_text":"Lütfen ad giriniz",
+  "signin_surname_valid_text":"Lütfen soyad giriniz",
+  "signin_email_valid_text":"Lütfen e-posta giriniz",
+  "signin_phone_valid_text":"Lütfen cep telefonu giriniz",
+  "signin_password_valid_text":"Lütfen şifre giriniz",
+  "signin_license_valid_text": "Sözleşme alanı zorunludur"
+},
  "signin_phone_code_select":{
      "signin_country_code_title":"Ülke kodu",
      "sigin_search_field_text":"Ülke kodu Ara"
@@ -106,6 +129,12 @@
     "otp_card_button":"Doğrula",
     "otp_card_valid_text":"Doğrulama kodu hatalı. Lütfen tekrar deneyiniz."   
  },
+
+ "bottom_sheets":{
+  "login_bottom_sheet":"E-posta adresiniz ve/veya şifreniz hatalı.",
+  "register_bottom_sheet":"Bu e-posta daha önce kullanılmış.farklı e-posta kullan veya giriş yapin",
+  "email_verify_bottom_sheet":"Lütfen alanları boş bırakmayınız"
+},
  "home_page": {
     "main_tabs": {
         "campign": "Kampanya",

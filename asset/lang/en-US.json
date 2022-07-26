@@ -11,7 +11,8 @@
 
     "onboard_button":{
     "onboard_blue_button":"Next",    
-    "onboard_text_button":"Skip"    
+    "onboard_text_button":"Skip" ,
+    "onboard_start_button":"Start"   
     },
     "main_appbar_titles":{
      "appbar_authpage_title":"New Genaration Life Assistant"
@@ -29,7 +30,7 @@
      "login_text_button":"Register"
     },
    "login_bottom_text":{
-     "login_text":"Have an account ?"
+     "login_text":"Have an account?"
 
    },
    "login_validation_text":{
@@ -38,7 +39,9 @@
  },
   "login_error_textbutton":{
     "login_isempty_text":"Please do not leave these fields blank",
-    "login_iswrong_text":"Your e-mail address and/or password is incorrect." 
+    "login_iswrong_text":"Your e-mail address and/or password is incorrect." ,
+    "login_email_valid_text_isemty":"Please enter e-mail address",
+    "login_password_valid_isemty":"Please enter password"
  },
  "forgot_password_email":{
    "forget_password_appbar":"Change Password",
@@ -83,7 +86,15 @@
    "signin_page_button":"Register",
    "signin_account_check_text":"Do you have an account?",
    "signin_page_enter_text_button":"Login",
-   "signin_bottom_desc_text":"Your personal data is processed within the scope of the Clarification Text. By clicking the Register button, you confirm that you have read and accepted the Personal Data Protection Policy, Privacy Policy, User Agreement and Cookie Policy."
+   "signin_bottom_desc_text_1":"Your personal data",
+   "signin_bottom_desc_text_2":"Clarification Text",
+   "signin_bottom_desc_text_3":"is processed within the scope of the",
+   "signin_bottom_desc_text_4":"the Personal Data Protection Policy,",
+   "signin_bottom_desc_text_5":"Privacy Policy,",
+   "signin_bottom_desc_text_6":"User Agreement",
+   "signin_bottom_desc_text_7":"and",
+   "signin_bottom_desc_text_8":"Cookie Policy.",
+   "signin_bottom_desc_text_9":"By clicking the Register button, you confirm that you have read and accepted"
 
 },
 "signin_validation_text":{
@@ -92,7 +103,16 @@
     "signin_email_valid_text":"Please enter a valid e-mail address",
     "signin_phone_valid_text":"Mobile Phone is faulty",
     "signin_password_valid_text":"Your password must be between 4 and 15 characters."
+    
  },
+  "signin_validation_isemty_fields":{
+  "signin_name_valid_text":"Please enter name.",
+  "signin_surname_valid_text":"Please enter surname.",
+  "signin_email_valid_text":"Please enter e-mail address",
+  "signin_phone_valid_text":"Please enter phone number",
+  "signin_password_valid_text":"Please enter password",
+  "signin_license_valid_text": "Agreement field is required"
+},
  "signin_phone_code_select":{
      "signin_country_code_title":"Country code",
      "sigin_search_field_text":"Search country code"
@@ -106,6 +126,13 @@
     "otp_card_button":"Approve",
     "otp_card_valid_text":"The verification code is incorrect. Please try again."   
  },
+ "bottom_sheets":{
+  "login_bottom_sheet":"Your e-mail address and/or password is incorrect.",
+  "register_bottom_sheet":"This e-mail has been used before. use different e-mail or log in",
+  "email_verify_bottom_sheet":"Please do not leave the fields blank"
+
+},
+
  "home_page": {
     "main_tabs": {
         "offer": "Campaign",

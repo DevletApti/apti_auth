@@ -446,7 +446,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                 ],
                 if (widget.showCountryFlag) ...[
                   Image.asset(
-                    'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
+                    'asset/flags/${_selectedCountry.code.toLowerCase()}.png',
                     package: 'intl_phone_field',
                     width: 32,
                   ),

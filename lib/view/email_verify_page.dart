@@ -2,6 +2,7 @@ import 'package:apti_mobile/cubit/verify_email_cubit.dart';
 import 'package:apti_mobile/cubit/verify_email_state.dart';
 import 'package:apti_mobile/localization/locale_keys.g.dart';
 import 'package:apti_mobile/view/login_page.dart';
+import 'package:apti_mobile/view/register_page.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -123,7 +124,7 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message!),
-        backgroundColor: Colors.orange,
+        backgroundColor: AppColors.aptiorange3,
         duration: const Duration(seconds: 2),
       ),
     );
@@ -134,7 +135,7 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
     // ignore: unused_label
     resizeToAvoidBottomInset:
     false;
-    ScreenUtil.init(context, designSize: const Size(305, 785));
+    ScreenUtil.init(context, designSize: const Size(305, 730));
 
     return BlocProvider(
       create: (BuildContext context) => VerifyEmailCubit(
@@ -185,42 +186,29 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
         ),
       ),
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Column(
           children: <Widget>[
-            SizedBox(height: ScreenUtil().setHeight(50)),
-            Padding(
-              padding: EdgeInsets.only(
-                left: ScreenUtil().setWidth(17),
-                right: ScreenUtil().setWidth(16),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.95,
+              height: MediaQuery.of(context).size.height * 0.45,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black12),
+                borderRadius: BorderRadius.circular(14.0),
               ),
-              child: Container(
-                width: ScreenUtil().setWidth(380),
-                height: ScreenUtil().setHeight(290),
-                // width: 380,
-                //height: 290,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black12),
-                  borderRadius: BorderRadius.circular(14.0),
-                ),
-                child: _buildContent(context),
-              ),
+              child: _buildContent(context),
             ),
             Container(
-              width: ScreenUtil().setWidth(380),
-              height: ScreenUtil().setHeight(70),
-              // width: 380,
-              //height: 70,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.08,
               margin: EdgeInsets.only(
                 top: ScreenUtil().setHeight(20),
-                left: ScreenUtil().setWidth(18),
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(14.0),
               ),
-              child: Padding(
-                padding: EdgeInsets.only(right: ScreenUtil().setWidth(13)),
-                child: _buildButton(context),
-              ),
+              child: _buildButton(context),
             )
           ],
         ),
@@ -236,8 +224,6 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(
-              //right: 120
-              // right: ScreenUtil().setWidth(62)
               ScreenUtil().setWidth(10),
               ScreenUtil().setHeight(0),
               ScreenUtil().setWidth(80),
@@ -271,20 +257,16 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
           height: ScreenUtil().setHeight(9),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(
-                  ScreenUtil().setWidth(16),
-                  ScreenUtil().setHeight(0),
-                  ScreenUtil().setWidth(10),
-                  ScreenUtil().setHeight(0)),
-              child: Text(
-                '($emailAddress)',
-                textAlign: TextAlign.left,
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 12,
-                ),
+            Text(
+              emailAddress.length > 26
+                  ? '(...${emailAddress.substring(emailAddress.indexOf('@'))})'
+                  : '($emailAddress)',
+              textAlign: TextAlign.left,
+              style: const TextStyle(
+                color: Colors.grey,
+                fontSize: 12,
               ),
             ),
             TextButton(
@@ -296,6 +278,7 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                       fontWeight: FontWeight.w700),
                 ),
                 onPressed: () {
+                  Navigator.of(context).pushNamed(RegisterPage.routeName);
                   // print('Pressed');
                 }),
           ],
@@ -353,11 +336,8 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
       margin: EdgeInsets.only(
         right: ScreenUtil().setHeight(12),
       ),
-
-      width: ScreenUtil().setWidth(35),
-      height: ScreenUtil().setHeight(46),
-      //width: 50,
-      // height: 49,
+      width: MediaQuery.of(context).size.width * 0.11,
+      height: MediaQuery.of(context).size.height * 0.06,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border:
@@ -389,8 +369,8 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
       margin: EdgeInsets.only(
         right: ScreenUtil().setHeight(9),
       ),
-      width: ScreenUtil().setHeight(46),
-      height: ScreenUtil().setHeight(46),
+      width: MediaQuery.of(context).size.width * 0.11,
+      height: MediaQuery.of(context).size.height * 0.06,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border:
@@ -422,8 +402,8 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
       margin: EdgeInsets.only(
         right: ScreenUtil().setHeight(9),
       ),
-      width: ScreenUtil().setHeight(46),
-      height: ScreenUtil().setHeight(46),
+      width: MediaQuery.of(context).size.width * 0.11,
+      height: MediaQuery.of(context).size.height * 0.06,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
@@ -454,8 +434,8 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
       margin: EdgeInsets.only(
         right: ScreenUtil().setHeight(9),
       ),
-      width: ScreenUtil().setHeight(46),
-      height: ScreenUtil().setHeight(46),
+      width: MediaQuery.of(context).size.width * 0.11,
+      height: MediaQuery.of(context).size.height * 0.06,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
@@ -486,8 +466,8 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
       margin: EdgeInsets.only(
         right: ScreenUtil().setHeight(9),
       ),
-      width: ScreenUtil().setHeight(46),
-      height: ScreenUtil().setHeight(46),
+      width: MediaQuery.of(context).size.width * 0.11,
+      height: MediaQuery.of(context).size.height * 0.06,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
@@ -516,10 +496,10 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
   Widget _buildFirstCell(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-        right: ScreenUtil().setHeight(5),
+        right: ScreenUtil().setHeight(9),
       ),
-      width: ScreenUtil().setHeight(46),
-      height: ScreenUtil().setHeight(46),
+      width: MediaQuery.of(context).size.width * 0.11,
+      height: MediaQuery.of(context).size.height * 0.06,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border:
@@ -614,9 +594,6 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
                                   isLoading = false;
                                 }));
                         });
-                        setState(() {
-                          isLoading = false;
-                        });
                       }
                     : null,
                 child: const Text(
@@ -631,4 +608,3 @@ class _EmailVerifyPageState extends State<EmailVerifyPage> {
     );
   }
 }
-

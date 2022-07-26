@@ -101,25 +101,27 @@ class _ForgotPasswordInfoPageState extends State<ForgotPasswordInfoPage> {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius),
-            side: const BorderSide(color: AppColors.aptilightgray2, width: 1),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(radius),
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () => isExpanded ? shrinkTile() : expandTile(),
-                    child: _buildEpostaText(),
-                  ),
-                  buildText(context),
-                ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(radius),
+              side: const BorderSide(color: AppColors.aptilightgray2, width: 1),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(radius),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () => isExpanded ? shrinkTile() : expandTile(),
+                      child: _buildEpostaText(),
+                    ),
+                    buildText(context),
+                  ],
+                ),
               ),
             ),
           ),

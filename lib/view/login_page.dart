@@ -68,7 +68,9 @@ class _LoginPageState extends State<LoginPage> {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message!),
-        backgroundColor: Colors.orange,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: AppColors.aptiorange3,
         duration: const Duration(seconds: 2),
       ),
     );
@@ -125,6 +127,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               SizedBox(height: ScreenUtil().setHeight(70)),
               Container(
+                padding: const EdgeInsets.only(left: 14, top: 10),
                 width: ScreenUtil().setWidth(340),
                 height: ScreenUtil().setHeight(348),
                 decoration: BoxDecoration(
@@ -135,15 +138,19 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(16.0),
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _buildCardTitle(),
-                    SizedBox(height: ScreenUtil().setHeight(5)),
+                    SizedBox(height: ScreenUtil().setHeight(17)),
                     _buildEmailTitle(),
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: _buildEmailTextField(),
                     ),
-                    _buildPasswordTitle(),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: _buildPasswordTitle(),
+                    ),
                     SizedBox(height: ScreenUtil().setHeight(12)),
                     _buildPasswordTextField(),
                     _buildForgetText(context),
@@ -170,6 +177,7 @@ class _LoginPageState extends State<LoginPage> {
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller: emailAddressController,
+        keyboardType: TextInputType.emailAddress,
         validator: (text) {
           if (text == null || text.isEmpty) {
             return LocaleKeys.login_error_textbutton_login_isempty_text.tr();
@@ -180,6 +188,7 @@ class _LoginPageState extends State<LoginPage> {
           return null;
         },
         decoration: InputDecoration(
+          hintText: LocaleKeys.login_card_login_email_inside_text.tr(),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),
@@ -202,9 +211,10 @@ class _LoginPageState extends State<LoginPage> {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         obscureText: _isVisible ? false : true,
         controller: passwordController,
+        keyboardType: TextInputType.visiblePassword,
         validator: (text) {
           if (text == null || text.isEmpty) {
-            return 'Boş lan';
+            return LocaleKeys.login_validation_text_login_password_valid_isemty.tr();
           }
           if (text.length < 4 || text.length > 15) {
             return LocaleKeys.login_validation_text_login_password_valid_text
@@ -212,7 +222,11 @@ class _LoginPageState extends State<LoginPage> {
           }
           return null;
         },
+        onEditingComplete: () => setState(() {
+          isValid = !isValid;
+        }),
         decoration: InputDecoration(
+          hintText: LocaleKeys.login_card_login_password_inside_text.tr(),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),
@@ -253,32 +267,34 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              onPressed: () async {
-                setState(() {
-                  isLoading = true;
-                });
-                await context
-                    .read<LoginCubit>()
-                    .service
-                    .userLogin(
-                        emailAddress: emailAddressController.text,
-                        password: passwordController.text)
-                    .then((value) async {
-                  await readTokenAndId();
-                  debugPrint(
-                      "AccessToken -> $accessToken  RefreshToken -> $refreshToken this is from login page");
-                  debugPrint("$value this is value");
-                });
-                setState(() {
-                  isLoading = false;
-                });
+              onPressed: isValid
+                  ? () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      await context
+                          .read<LoginCubit>()
+                          .service
+                          .userLogin(
+                              emailAddress: emailAddressController.text,
+                              password: passwordController.text)
+                          .then((value) async {
+                        await readTokenAndId();
+                        debugPrint(
+                            "AccessToken -> $accessToken  RefreshToken -> $refreshToken this is from login page");
+                        debugPrint("$value this is value");
+                      });
+                      setState(() {
+                        isLoading = false;
+                      });
 
-                if (accessToken != '') {
-                  Navigator.of(context).pushNamed(MainPage.routeName);
-                } else {
-                  snackBar('E-posta adresiniz ve/veya şifreniz hatalı.');
-                }
-              },
+                      if (accessToken != '') {
+                        Navigator.of(context).pushNamed(MainPage.routeName);
+                      } else {
+                        snackBar('E-posta adresiniz ve/veya şifreniz hatalı.');
+                      }
+                    }
+                  : null,
               child: Text(LocaleKeys.login_button_login_button_text.tr()),
             ),
           ),
@@ -289,50 +305,48 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 Widget _buildPasswordTitle() {
-  return Padding(
-    padding: const EdgeInsets.only(top: 17, right: 270),
-    child: Text(
-      LocaleKeys.login_card_login_password.tr(),
-      style: const TextStyle(color: AppColors.aptidarkblue5),
-    ),
+  return Text(
+    LocaleKeys.login_card_login_password.tr(),
+    style: const TextStyle(
+        color: AppColors.aptidarkblue5, fontWeight: FontWeight.w400),
   );
 }
 
 Widget _buildEmailTitle() {
-  return Padding(
-    padding: const EdgeInsets.only(top: 10, right: 260),
-    child: Text(
-      LocaleKeys.login_card_login_email.tr(),
-      style: const TextStyle(color: AppColors.aptidarkblue5),
-    ),
+  return Text(
+    LocaleKeys.login_card_login_email.tr(),
+    style: const TextStyle(
+        color: AppColors.aptidarkblue5, fontWeight: FontWeight.w400),
   );
 }
 
 Widget _buildCardTitle() {
-  return Padding(
-    padding: const EdgeInsets.only(top: 10, right: 255),
-    child: Text(
-      LocaleKeys.login_card_login_card_title.tr(),
-      style: const TextStyle(
-          color: AppColors.aptidarkgray5, fontWeight: FontWeight.w600),
-    ),
+  return Text(
+    LocaleKeys.login_card_login_card_title.tr(),
+    style: const TextStyle(
+        color: AppColors.aptidarkgray5,
+        fontWeight: FontWeight.w600,
+        fontSize: 18),
   );
 }
 
 Widget _buildForgetText(BuildContext context) {
-  return Expanded(
-    child: Padding(
-      padding: const EdgeInsets.only(left: 190, top: 30),
-      child: TextButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed(ForgotPasswordPage.routeName);
-        },
-        child: Text(
-          LocaleKeys.login_card_login_forget_password_text.tr(),
-          style: const TextStyle(color: AppColors.aptilightblue2),
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: TextButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(ForgotPasswordPage.routeName);
+          },
+          child: Text(
+            LocaleKeys.login_card_login_forget_password_text.tr(),
+            style: const TextStyle(color: AppColors.aptilightblue2),
+          ),
         ),
       ),
-    ),
+    ],
   );
 }
 
@@ -342,7 +356,7 @@ Widget _buildBottomTexts(BuildContext context) {
       Text(
         LocaleKeys.login_bottom_text_login_text.tr(),
         style: TextStyle(
-            fontSize: ScreenUtil().setSp(16), fontWeight: FontWeight.w400),
+            fontSize: ScreenUtil().setSp(14), fontWeight: FontWeight.w400),
       ),
       TextButton(
         style: TextButton.styleFrom(

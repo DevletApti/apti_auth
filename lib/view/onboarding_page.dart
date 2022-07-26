@@ -2,8 +2,11 @@ import 'package:apti_mobile/core/colors/app_colors.dart';
 import 'package:apti_mobile/view/login_page.dart';
 import 'package:apti_mobile/view/widgets/onboarding_contents.dart';
 import 'package:apti_mobile/view/widgets/size_config.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../localization/locale_keys.g.dart';
 
 class OnboardingScreen extends StatefulWidget {
   static const routeName = "/onboarding";
@@ -66,37 +69,40 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   return Container(
                     child: Padding(
                       padding: const EdgeInsets.all(40.0),
-                      child: Column(
-                        children: [
-                          Image.asset(
-                            contents[i].image,
-                            height: SizeConfig.blockV! * 35,
-                          ),
-                          SizedBox(
-                            height: (height >= 840) ? 60 : 30,
-                          ),
-                          Text(
-                            contents[i].title,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: "Mulish",
-                              fontWeight: FontWeight.w600,
-                              fontSize: (width <= 550) ? 30 : 35,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              contents[i].image,
+                              height: SizeConfig.blockV! * 35,
                             ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            contents[i].desc,
-                            style: TextStyle(
-                              fontFamily: "Mulish",
-                              fontWeight: FontWeight.w300,
-                              fontSize: (width <= 550) ? 17 : 25,
+                            SizedBox(
+                              height: (height >= 840) ? 60 : 30,
                             ),
-                            textAlign: TextAlign.center,
-                          )
-                        ],
+                            Text(
+                              contents[i].title,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: "Mulish",
+                                fontWeight: FontWeight.w600,
+                                fontSize: (width <= 550) ? 30 : 35,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Text(
+                              contents[i].desc,
+                              style: TextStyle(
+                                fontFamily: "Mulish",
+                                fontWeight: FontWeight.w300,
+                                fontSize: (width <= 550) ? 17 : 25,
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -117,8 +123,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   ),
                   _currentPage + 1 == contents.length
                       ? Container(
-                          //   ScreenUtil().setWidth(17),
-                          //   ScreenUtil().setWidth(16),
                           margin: const EdgeInsets.only(bottom: 40),
                           child: Padding(
                             padding: const EdgeInsets.all(30),
@@ -130,7 +134,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   Navigator.of(context)
                                       .pushNamed(LoginPage.routeName);
                                 },
-                                child: const Text("Başla"),
+                                child: Text(LocaleKeys
+                                    .onboard_button_onboard_start_button
+                                    .tr()),
                                 style: ElevatedButton.styleFrom(
                                   primary: AppColors.aptiblueprimary,
                                   shape: RoundedRectangleBorder(
@@ -157,9 +163,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               _buildNextBtn(width),
                               TextButton(
                                 onPressed: () => _controller.jumpToPage(3),
-                                child: const Text(
-                                  "Atla",
-                                  style: TextStyle(color: Colors.black),
+                                child: Text(
+                                  LocaleKeys.onboard_button_onboard_text_button
+                                      .tr(),
+                                  style: const TextStyle(color: Colors.black),
                                 ),
                                 style: TextButton.styleFrom(
                                   elevation: 0,
@@ -192,16 +199,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             curve: Curves.easeIn,
           );
         },
-        child: const Text("Sonraki"),
+        child: Text(LocaleKeys.onboard_button_onboard_blue_button.tr()),
         style: ElevatedButton.styleFrom(
           primary: AppColors.aptiblueprimary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
           elevation: 0,
-          padding: (width <= 550)
-              ? const EdgeInsets.symmetric(horizontal: 100, vertical: 20)
-              : EdgeInsets.symmetric(horizontal: width * 0.2, vertical: 25),
+          // padding: (width <= 550)
+          //     ? const EdgeInsets.symmetric(horizontal: 100, vertical: 20)
+          //     : EdgeInsets.symmetric(horizontal: width * 0.2, vertical: 25),
           textStyle: TextStyle(fontSize: (width <= 550) ? 13 : 17),
         ),
       ),

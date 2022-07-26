@@ -1,5 +1,4 @@
 import 'package:apti_mobile/view/email_verify_page.dart';
-import 'package:apti_mobile/view/widgets/country_code_widget/intl_phone_field.dart';
 import 'package:apti_mobile/view/widgets/login_header.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -95,7 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: const Size(375, 1060));
+    ScreenUtil.init(context, designSize: const Size(375, 950));
 
     return BlocProvider(
       create: (BuildContext context) => SendEmailCubit(
@@ -105,8 +104,7 @@ class _RegisterPageState extends State<RegisterPage> {
       child: BlocConsumer<SendEmailCubit, SendEmailState>(
         listener: (context, state) {
           if (state is SendComplete) {
-            if (state.isComplete) {
-            }
+            if (state.isComplete) {}
           }
         },
         builder: (context, state) {
@@ -117,138 +115,119 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Scaffold _buildScaffold(BuildContext context, SendEmailState state) {
-    double height = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        toolbarHeight: ScreenUtil().setHeight(80.0), //80.0
-        backgroundColor: AppColors.aptiwhite,
-        actions: [
-          Padding(
-            padding: EdgeInsets.only(right: ScreenUtil().setHeight(10)),
-            child: Row(
-              children: const [],
-            ),
-          ),
-        ],
-        leading: const Text(''),
-        title: Column(
-          children: const [
-            Padding(
-              padding: EdgeInsets.fromLTRB(0, 5, 26, 0),
-              child: HeaderWidget(),
-            ),
-          ],
-        ),
-      ),
-      key: _scaffoldKey,
-      backgroundColor: AppColors.aptiwhite,
-      body: Center(
+      body: Form(
+        key: formKey,
+        //autovalidateMode: autovalidateMode(state),
         child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                SizedBox(height: ScreenUtil().setHeight(15)),
-                Container(
-                  width: 370,
-                  height: 790,
-                  child: Card(
-                    color: AppColors.aptilightgray0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        side:
-                            const BorderSide(color: AppColors.aptilightgray2)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: height * 0.02),
+          child: Column(
+            children: [
+              SizedBox(
+                height: ScreenUtil().setHeight(50),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                    ScreenUtil().setHeight(10),
+                    ScreenUtil().setWidth(0),
+                    ScreenUtil().setWidth(10),
+                    ScreenUtil().setWidth(0)),
+                child: const HeaderWidget(),
+              ),
+              SizedBox(height: ScreenUtil().setHeight(15)),
+              // ignore: sized_box_for_whitespace
+              Container(
+                width: ScreenUtil().setWidth(330),
+                // width: 370,
+                height: ScreenUtil().setHeight(930),
+                //height: 790,
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  border: Border.all(
+                      color: AppColors.aptilightgray2,
+                      width: ScreenUtil().setWidth(2.0)),
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 2),
 
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 260, 10),
-                          child: Text(
-                            LocaleKeys.signin_card_signin_card_title.tr(),
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600),
-                          ),
-                        ),
-                        SizedBox(height: height * 0.02),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 285, 10),
-                          child: Text(
-                            LocaleKeys.signin_card_signin_name.tr(),
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w400),
-                          ),
-                        ),
-
-                        _buildNameTextField(),
-                        SizedBox(height: height * 0.02),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 270, 10),
-                          child: Text(
-                            LocaleKeys.signin_card_signin_surname.tr(),
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                        _buildSurnameTextField(),
-                        SizedBox(height: height * 0.03),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 250, 10),
-                          child: Text(
-                            LocaleKeys.signin_card_signin_email.tr(),
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                        _buildEmailTextField(),
-                        SizedBox(height: height * 0.03),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 210, 5),
-                          child: Text(
-                            LocaleKeys.signin_card_sign_in_phone_number.tr(),
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                        // _buildPhone(),
-                        SizedBox(height: height * 0.02),
-                        _buildPhonTextField(),
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 265, 10),
-                          child: Text(
-                            LocaleKeys.signin_card_signin_password.tr(),
-                            style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w400),
-                          ),
-                        ),
-
-                        _buildPasswordTextField(),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        _buildCheckBox(),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 260, 10),
+                      child: Text(
+                        LocaleKeys.signin_card_signin_card_title.tr(),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w600),
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 2),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 285, 10),
+                      child: Text(
+                        LocaleKeys.signin_card_signin_name.tr(),
+                        style: const TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w400),
+                      ),
+                    ),
+
+                    _buildNameTextField(),
+                    SizedBox(height: ScreenUtil().setHeight(10)),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 270, 10),
+                      child: Text(
+                        LocaleKeys.signin_card_signin_surname.tr(),
+                        style: const TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    _buildSurnameTextField(),
+                    SizedBox(height: ScreenUtil().setHeight(5)),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 250, 10),
+                      child: Text(
+                        LocaleKeys.signin_card_signin_email.tr(),
+                        style: const TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    _buildEmailTextField(),
+                    SizedBox(height: ScreenUtil().setHeight(10)),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 210, 5),
+                      child: Text(
+                        LocaleKeys.signin_card_sign_in_phone_number.tr(),
+                        style: const TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    // _buildPhone(),
+                    SizedBox(height: ScreenUtil().setHeight(10)),
+
+                    _buildPhonTextField(),
+                    SizedBox(height: ScreenUtil().setHeight(20)),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 265, 10),
+                      child: Text(
+                        LocaleKeys.signin_card_signin_password.tr(),
+                        style: const TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.w400),
+                      ),
+                    ),
+
+                    _buildPasswordTextField(),
+
+                    SizedBox(height: ScreenUtil().setHeight(30)),
+                    _buildCheckBox(),
+                  ],
                 ),
-                const SizedBox(
-                  height: 25,
-                ),
-                buildSubmit(context),
-                // _signInButton(),
-                const SizedBox(
-                  height: 25,
-                ),
-                _buildBottomTexts(context)
-              ],
-            ),
+              ),
+              SizedBox(height: ScreenUtil().setHeight(20)),
+              buildSubmit(context),
+              // _signInButton(),
+
+              SizedBox(height: ScreenUtil().setHeight(20)),
+              _buildBottomTexts(context)
+            ],
           ),
         ),
       ),
@@ -282,25 +261,56 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  IntlPhoneField _buildPhone() {
-    return IntlPhoneField(
-      // ignore: deprecated_member_use
-      searchText:
-          LocaleKeys.signin_phone_code_select_sigin_search_field_text.tr(),
-      decoration: const InputDecoration(
-        labelText: 'Phone Number',
-        border: OutlineInputBorder(
-          borderSide: BorderSide(),
-        ),
-      ),
-      onChanged: (phone) {
-        print(phone.completeNumber);
-      },
-      onCountryChanged: (country) {
-        print('Country changed to: ' + country.name);
-      },
-    );
-  }
+  // Widget _buildPhone() {
+  //   // ignore: sized_box_for_whitespace
+  //   return Container(
+  //     width: 311,
+  //     height: 70,
+  //     child: IntlPhoneField(
+  //       // ignore: deprecated_member_use
+  //       autovalidateMode: AutovalidateMode.onUserInteraction,
+  //       controller: phoneController,
+  //       keyboardType: TextInputType.phone,
+  //       validator: (value) {
+  //         if (value == null) {
+  //           return 'Please enter some text';
+  //         }
+  //         return null;
+  //       },
+  //       searchText:
+  //           LocaleKeys.signin_phone_code_select_sigin_search_field_text.tr(),
+  //       decoration: InputDecoration(
+  //         fillColor: AppColors.aptiwhite,
+  //         filled: true,
+  //         hintText: LocaleKeys.signin_card_sign_in_phone_number.tr(),
+  //         enabledBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(5),
+  //           borderSide: const BorderSide(color: Colors.grey),
+  //         ),
+  //         focusedBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(5),
+  //           borderSide: const BorderSide(color: AppColors.aptidarkgray5),
+  //         ),
+  //         border: OutlineInputBorder(
+  //           // on error only
+  //           borderRadius: BorderRadius.circular(5),
+  //           borderSide: const BorderSide(color: Colors.grey),
+  //         ),
+  //         suffixIcon: phoneController.text.isEmpty
+  //             ? null
+  //             : IconButton(
+  //                 onPressed: _clearPhoneTextField,
+  //                 icon: const Icon(Icons.clear)),
+  //       ),
+  //       onChanged: (phone) {
+  //         print(phone.completeNumber);
+  //       },
+  //       onCountryChanged: (country) {
+  //         print('Country changed to: ' + country.name);
+  //       },
+  //     ),
+  //   );
+  // }
 
   Widget _buildNameTextField() {
     return SizedBox(
@@ -311,7 +321,7 @@ class _RegisterPageState extends State<RegisterPage> {
         controller: nameController,
         validator: (text) {
           if (text == null || text.isEmpty) {
-            return 'Lütfen ad giriniz';
+            return LocaleKeys.signin_validation_isemty_fields_signin_name_valid_text.tr();
           }
           if (nameRegExp.hasMatch(text)) {
             return LocaleKeys.signin_validation_text_signin_name_valid_text
@@ -319,9 +329,11 @@ class _RegisterPageState extends State<RegisterPage> {
           }
           return null;
         },
+        textAlign: TextAlign.center,
         decoration: InputDecoration(
           fillColor: AppColors.aptiwhite,
           filled: true,
+          
           hintText: LocaleKeys.signin_card_signin_name_inside_text.tr(),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
@@ -358,7 +370,7 @@ class _RegisterPageState extends State<RegisterPage> {
           keyboardType: TextInputType.name,
           validator: (text) {
             if (text == null || text.isEmpty) {
-              return 'Lütfen soyad giriniz';
+              return LocaleKeys.signin_validation_isemty_fields_signin_surname_valid_text.tr();
             }
             if (nameRegExp.hasMatch(text)) {
               return LocaleKeys.signin_validation_text_signin_surname_valid_text
@@ -366,6 +378,7 @@ class _RegisterPageState extends State<RegisterPage> {
             }
             return null;
           },
+          textAlign: TextAlign.center,
           decoration: InputDecoration(
             fillColor: AppColors.aptiwhite,
             filled: true,
@@ -405,7 +418,7 @@ class _RegisterPageState extends State<RegisterPage> {
         keyboardType: TextInputType.emailAddress,
         validator: (text) {
           if (text == null || text.isEmpty) {
-            return 'Lütfen e-posta giriniz';
+            return LocaleKeys.signin_validation_isemty_fields_signin_email_valid_text.tr();
           }
           if (!emailRegExp.hasMatch(text)) {
             return LocaleKeys.signin_validation_text_signin_email_valid_text
@@ -416,6 +429,7 @@ class _RegisterPageState extends State<RegisterPage> {
           }
           return null;
         },
+        textAlign: TextAlign.center,
         decoration: InputDecoration(
           fillColor: AppColors.aptiwhite,
           filled: true,
@@ -458,7 +472,7 @@ class _RegisterPageState extends State<RegisterPage> {
         keyboardType: TextInputType.phone,
         validator: (text) {
           if (text == null || text.isEmpty) {
-            return 'Lütfen cep telefonu giriniz';
+            return LocaleKeys.signin_validation_isemty_fields_signin_phone_valid_text.tr();
           }
           if (!phoneRegExp.hasMatch(text)) {
             return LocaleKeys.signin_validation_text_signin_phone_valid_text
@@ -466,6 +480,7 @@ class _RegisterPageState extends State<RegisterPage> {
           }
           return null;
         },
+        textAlign: TextAlign.center,
         decoration: InputDecoration(
           fillColor: AppColors.aptiwhite,
           filled: true,
@@ -505,7 +520,7 @@ class _RegisterPageState extends State<RegisterPage> {
         keyboardType: TextInputType.visiblePassword,
         validator: (text) {
           if (text == null || text.isEmpty) {
-            return 'Lütfen şifre giriniz';
+            return LocaleKeys.signin_validation_isemty_fields_signin_password_valid_text.tr();
           }
           if (text.length < 4 || text.length > 15) {
             return LocaleKeys.signin_validation_text_signin_password_valid_text
@@ -513,6 +528,7 @@ class _RegisterPageState extends State<RegisterPage> {
           }
           return null;
         },
+        textAlign: TextAlign.center,
         decoration: InputDecoration(
           fillColor: AppColors.aptiwhite,
           filled: true,
@@ -618,7 +634,7 @@ class _RegisterPageState extends State<RegisterPage> {
       _buildLicenseAccept(),
     ]);
   }
-
+//Aydınlatma Metni kapsamında işlenmektedir. Kayıt Ol butonuna basarak Kişisel Verilerin Korunması Politikası'nı, Gizlilik Politikası'nı, Kullanıcı Sözleşmesi'ni ve Çerez Politikası'nı okuduğunuzu ve kabul ettiğinizi onaylıyorsunuz.
   Widget _buildLicenseAccept() {
     return Expanded(
       child: Padding(
